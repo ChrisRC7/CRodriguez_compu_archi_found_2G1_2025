@@ -1,13 +1,12 @@
 //-----------------------------------------------------------------------------
-// Modulo Spi_slave_module (con MISO para Handshake ACK y CORRECCIÓN FINAL en load condition)
+// Modulo Spi_slave_module (CORRECCIÓN FINAL con FLAG para CARGA ÚNICA)
 //
 // Descripcion:
 //   Modulo esclavo SPI estructural para recibir 4 bits de datos (MOSI)
-//   y enviar un byte de acknowledgement (MISO).
-//   Cumple con restricciones de no usar 'if', 'case', operador ternario.
-//   Opera con el reloj 'clk' del sistema FPGA.
+//   y enviar un byte de acknowledgement (MISO). Evita la sobrescritura
+//   del buffer de datos MOSI.
 //-----------------------------------------------------------------------------
-module Spi_slave_module ( // Asegúrate que este nombre coincida con tu archivo y las instancias
+module Spi_slave_module (
     input  logic clk,
     input  logic reset,
     input  logic sclk_in,
@@ -18,53 +17,56 @@ module Spi_slave_module ( // Asegúrate que este nombre coincida con tu archivo 
     output logic miso_out
 );
 
-    // Definición del byte de Acknowledgement que la FPGA enviará
-    localparam ACK_BYTE = 8'hA5;
+    localparam ACK_BYTE = 8'h00;
 
-    // Registros para sincronizar entradas asíncronas SPI con 'clk'
+    // Sincronizadores
     logic sclk_sync1, sclk_sync2;
     logic ss_n_sync1, ss_n_sync2;
     logic mosi_sync1, mosi_sync2;
 
-    // Wires para eventos y estados derivados
+    // Eventos y estados
     wire sclk_rising_edge_event;
-    wire ss_n_falling_edge_event;
-    wire ss_n_active;
+    wire ss_n_falling_edge_event; // Pulso cuando ss_n baja
+    wire ss_n_active;             // Nivel, ss_n está bajo
 
-    // --- Lógica MOSI (Recepción de datos) ---
+    // Lógica MOSI
     logic [3:0] shift_reg_mosi;
     wire  [3:0] d_shift_reg_mosi;
-    logic [1:0] bit_count_reg;      // Cuenta los bits recibidos: 0, 1, 2, 3
+    logic [1:0] bit_count_reg;      // Cuenta 0, 1, 2, 3 para los 4 bits de datos MOSI
     wire  [1:0] d_bit_count;
     logic [3:0] data_buffer_reg;
     wire  [3:0] d_data_buffer;
-    logic data_valid_pulse_reg;
+    logic data_valid_pulse_reg;     // Se convertirá en spi_data_valid_out
     wire  d_data_valid_pulse;
 
-    // --- Lógica MISO (Envío de ACK) ---
+    // Lógica MISO
     logic [7:0] shift_reg_miso;
     wire  [7:0] d_shift_reg_miso;
+
+    // --- NUEVO: Flag para asegurar una sola carga del data_buffer_reg por transacción SS_n ---
+    logic has_loaded_mosi_data_this_frame_reg;
+    wire  d_has_loaded_mosi_data_this_frame;
 
     //-------------------------------------------------------------------------
     // 1. Sincronización y Detección de Eventos
     //-------------------------------------------------------------------------
     assign sclk_rising_edge_event = ~reset & sclk_sync1 & ~sclk_sync2;
-    assign ss_n_falling_edge_event = ~reset & ~ss_n_sync1 & ss_n_sync2;
-    assign ss_n_active = ~reset & ~ss_n_sync1;
+    assign ss_n_falling_edge_event = ~reset & ~ss_n_sync1 & ss_n_sync2; // Pulso en flanco de bajada de ss_n
+    assign ss_n_active = ~reset & ~ss_n_sync1;                         // Nivel (ss_n está bajo)
 
     //-------------------------------------------------------------------------
-    // 2. Lógica del Registro de Desplazamiento MOSI
+    // 2. Lógica del Registro de Desplazamiento MOSI (igual que antes)
     //-------------------------------------------------------------------------
     wire shift_enable;
     assign shift_enable = ss_n_active & sclk_rising_edge_event;
 
-    wire clear_mosi_logic_condition;
-    assign clear_mosi_logic_condition = reset | ss_n_falling_edge_event;
+    wire clear_mosi_shift_reg_condition; // Renombrado para claridad
+    assign clear_mosi_shift_reg_condition = reset | ss_n_falling_edge_event;
 
-    assign d_shift_reg_mosi[0] = ~clear_mosi_logic_condition & ( (shift_enable & mosi_sync2)      | (~shift_enable & shift_reg_mosi[0]) );
-    assign d_shift_reg_mosi[1] = ~clear_mosi_logic_condition & ( (shift_enable & shift_reg_mosi[0]) | (~shift_enable & shift_reg_mosi[1]) );
-    assign d_shift_reg_mosi[2] = ~clear_mosi_logic_condition & ( (shift_enable & shift_reg_mosi[1]) | (~shift_enable & shift_reg_mosi[2]) );
-    assign d_shift_reg_mosi[3] = ~clear_mosi_logic_condition & ( (shift_enable & shift_reg_mosi[2]) | (~shift_enable & shift_reg_mosi[3]) );
+    assign d_shift_reg_mosi[0] = ~clear_mosi_shift_reg_condition & ( (shift_enable & mosi_sync2)      | (~shift_enable & shift_reg_mosi[0]) );
+    assign d_shift_reg_mosi[1] = ~clear_mosi_shift_reg_condition & ( (shift_enable & shift_reg_mosi[0]) | (~shift_enable & shift_reg_mosi[1]) );
+    assign d_shift_reg_mosi[2] = ~clear_mosi_shift_reg_condition & ( (shift_enable & shift_reg_mosi[1]) | (~shift_enable & shift_reg_mosi[2]) );
+    assign d_shift_reg_mosi[3] = ~clear_mosi_shift_reg_condition & ( (shift_enable & shift_reg_mosi[2]) | (~shift_enable & shift_reg_mosi[3]) );
 
     //-------------------------------------------------------------------------
     // 3. Lógica del Contador de Bits (para los 4 bits de MOSI)
@@ -76,9 +78,7 @@ module Spi_slave_module ( // Asegúrate que este nombre coincida con tu archivo 
     assign reset_counter_condition = reset | ss_n_falling_edge_event;
 
     // El contador incrementa si shift_enable es verdadero Y el contador no es actualmente 3.
-    // Esto asegura que cuente 0->1, 1->2, 2->3.
-    // Cuando está en 3 y ocurre shift_enable, increment_counter_condition es falso,
-    // por lo que d_bit_count se queda en 3.
+    // Se detiene en 3.
     wire increment_counter_condition;
     assign increment_counter_condition = shift_enable & ~counter_is_3;
 
@@ -91,39 +91,38 @@ module Spi_slave_module ( // Asegúrate que este nombre coincida con tu archivo 
     assign d_bit_count[1] = ~reset_counter_condition & ( (increment_counter_condition & bit_count_incremented_val_1) | (~increment_counter_condition & bit_count_reg[1]) );
 
     //-------------------------------------------------------------------------
-    // 4. Lógica del Buffer de Datos MOSI y Pulso de Validez -- CONDICIÓN DE CARGA CORREGIDA
+    // 4. Lógica del Buffer de Datos MOSI y Pulso de Validez -- CON FLAG DE CARGA ÚNICA
     //-------------------------------------------------------------------------
-    wire final_load_data_buffer_condition;
-    // La condición de carga es verdadera cuando:
-    //   'shift_enable' está activo (se está procesando un bit SPI)
-    //   Y 'counter_is_3' es verdadero (el bit_count_reg *actualmente* es 3, lo que significa
-    //    que este 'shift_enable' está procesando el 4to y último bit de datos).
-    assign final_load_data_buffer_condition = shift_enable & counter_is_3;
+    wire attempt_to_load_condition; // Condición base para cargar (4to bit)
+    assign attempt_to_load_condition = shift_enable & counter_is_3;
 
-    // Se carga con d_shift_reg_mosi para capturar el valor que shift_reg_mosi
-    // tendrá DESPUÉS del flanco de reloj actual (es decir, el valor completo de 4 bits).
-    assign d_data_buffer[0] = ~reset & (
-                                (final_load_data_buffer_condition & d_shift_reg_mosi[0]) |
-                                (~final_load_data_buffer_condition & data_buffer_reg[0])
-                              );
-    assign d_data_buffer[1] = ~reset & (
-                                (final_load_data_buffer_condition & d_shift_reg_mosi[1]) |
-                                (~final_load_data_buffer_condition & data_buffer_reg[1])
-                              );
-    assign d_data_buffer[2] = ~reset & (
-                                (final_load_data_buffer_condition & d_shift_reg_mosi[2]) |
-                                (~final_load_data_buffer_condition & data_buffer_reg[2])
-                              );
-    assign d_data_buffer[3] = ~reset & (
-                                (final_load_data_buffer_condition & d_shift_reg_mosi[3]) |
-                                (~final_load_data_buffer_condition & data_buffer_reg[3])
-                              );
+    wire actual_mosi_data_load_trigger; // Condición final para cargar el buffer MOSI
+    // Carga solo si es el momento correcto (attempt_to_load) Y no se ha cargado ya en esta trama.
+    assign actual_mosi_data_load_trigger = attempt_to_load_condition & ~has_loaded_mosi_data_this_frame_reg;
 
-    // El pulso de validez se genera cuando la nueva condición de carga es verdadera.
-    assign d_data_valid_pulse = ~reset & final_load_data_buffer_condition;
+    // Lógica para el flag 'has_loaded_mosi_data_this_frame_reg'
+    // Se resetea a 0 con el reset global o cuando ss_n baja (inicio de nueva trama).
+    // Se pone a 1 cuando ocurre 'actual_mosi_data_load_trigger'.
+    wire reset_load_flag;
+    assign reset_load_flag = reset | ss_n_falling_edge_event;
+
+    assign d_has_loaded_mosi_data_this_frame = ~reset_load_flag & ( // Si no hay reset del flag...
+                                                 (actual_mosi_data_load_trigger & 1'b1) | // ...ponlo a 1 si ocurre el trigger de carga
+                                                 (~actual_mosi_data_load_trigger & has_loaded_mosi_data_this_frame_reg) // ...o mantenlo
+                                               );
+    // Si reset_load_flag es 1, entonces d_has_loaded_mosi_data_this_frame será 0.
+
+    // Carga data_buffer_reg usando el trigger de carga única
+    assign d_data_buffer[0] = ~reset & ( (actual_mosi_data_load_trigger & d_shift_reg_mosi[0]) | (~actual_mosi_data_load_trigger & data_buffer_reg[0]) );
+    assign d_data_buffer[1] = ~reset & ( (actual_mosi_data_load_trigger & d_shift_reg_mosi[1]) | (~actual_mosi_data_load_trigger & data_buffer_reg[1]) );
+    assign d_data_buffer[2] = ~reset & ( (actual_mosi_data_load_trigger & d_shift_reg_mosi[2]) | (~actual_mosi_data_load_trigger & data_buffer_reg[2]) );
+    assign d_data_buffer[3] = ~reset & ( (actual_mosi_data_load_trigger & d_shift_reg_mosi[3]) | (~actual_mosi_data_load_trigger & data_buffer_reg[3]) );
+
+    // El pulso de validez también se genera con el trigger de carga única.
+    assign d_data_valid_pulse = ~reset & actual_mosi_data_load_trigger;
 
     //-------------------------------------------------------------------------
-    // 5. Lógica del Registro de Desplazamiento MISO (para enviar ACK_BYTE)
+    // 5. Lógica del Registro de Desplazamiento MISO (para enviar ACK_BYTE) - Sin cambios
     //-------------------------------------------------------------------------
     wire load_ack_condition;
     assign load_ack_condition = reset | ss_n_falling_edge_event;
@@ -164,6 +163,8 @@ module Spi_slave_module ( // Asegúrate que este nombre coincida con tu archivo 
 
         bit_count_reg[0] <= d_bit_count[0];
         bit_count_reg[1] <= d_bit_count[1];
+        
+        has_loaded_mosi_data_this_frame_reg <= d_has_loaded_mosi_data_this_frame; // Actualizar el flag
 
         data_buffer_reg[0] <= d_data_buffer[0];
         data_buffer_reg[1] <= d_data_buffer[1];

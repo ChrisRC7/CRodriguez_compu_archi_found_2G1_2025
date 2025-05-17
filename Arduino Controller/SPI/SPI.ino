@@ -2,9 +2,9 @@
 
 const int ssPin = 10; // Slave Select pin
 byte velocidad = 0;
-const byte ACK_EXPECTED = 0xA5; // El byte de ACK que esperamos de la FPGA
+const byte ACK_EXPECTED = 0x00; // El byte de ACK que esperamos de la FPGA
 
-SPISettings spiSettings(1000000, MSBFIRST, SPI_MODE0); // 1MHz, MSB primero, Modo 0
+SPISettings spiSettings(62500, MSBFIRST, SPI_MODE0); // 1MHz, MSB primero, Modo 0
 
 void setup() {
   Serial.begin(9600);
