@@ -1,0 +1,29 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "fpga_physical_miso",
+					"strict" : false
+				},
+				{
+					"name" : "FPGA_reset",
+					"strict" : false
+				},
+				{
+					"name" : "FPGA_clk",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_ss_n",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_sclk",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

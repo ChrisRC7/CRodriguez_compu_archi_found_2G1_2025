@@ -1,0 +1,46 @@
+// Nombre del archivo: proyecto_final_top.sv
+// Este es tu módulo de NIVEL SUPERIOR
+
+module FpgaController (
+    // --- Entradas FÍSICAS a la FPGA ---
+    input logic board_clk,          // Reloj principal de tu placa FPGA
+    input logic board_reset,        // Botón de reset de tu placa FPGA (o señal de reset)
+    input logic arduino_sclk,       // Conectado al SCK del Arduino (a través del convertidor de nivel)
+    input logic arduino_mosi,       // Conectado al MOSI del Arduino (a través del convertidor de nivel)
+    input logic arduino_ss_n,       // Conectado al SS del Arduino (a través del convertidor de nivel)
+
+    // --- Salidas FÍSICAS de la FPGA ---
+    output logic motor_pwm_signal,   // Hacia el driver del motor
+    output logic [6:0] seven_segment_display // Hacia los segmentos del display
+);
+
+    // --- Señales INTERNAS para conectar los módulos ---
+    // Estas NO son pines físicos. Son "cables" dentro de la FPGA.
+    wire [3:0] data_from_spi_module;
+    wire       data_is_valid_from_spi_module; // Aquí es donde va tu spi_data_valid_out
+
+    // --- Instancia del Módulo Esclavo SPI ---
+    // Usamos los nombres de puerto del módulo spi_slave_module que me mostraste
+    spi_slave_module spi_unit (
+        .clk(board_clk),                  // Conecta al reloj principal de la placa
+        .reset(board_reset),              // Conecta al reset principal de la placa
+        .sclk_in(arduino_sclk),           // Desde el pin de entrada físico
+        .mosi_in(arduino_mosi),           // Desde el pin de entrada físico
+        .ss_n_in(arduino_ss_n),           // Desde el pin de entrada físico
+        .spi_data_out(data_from_spi_module),        // Salida del SPI va a un wire interno
+        .spi_data_valid_out(data_is_valid_from_spi_module) // Salida del SPI va a un wire interno
+    );
+
+    // --- Instancia del Módulo PWM y Display ---
+    // Asumiendo que tu otro módulo se llama 'fpga_slave_pwm_display'
+    // y tiene puertos como los discutimos.
+    fpga_slave_pwm_display pwm_and_display_unit (
+        .clk(board_clk),                             // Conecta al reloj principal de la placa
+        .reset(board_reset),                         // Conecta al reset principal de la placa
+        .arduino_data_in(data_from_spi_module),          // Toma los datos del wire interno
+        .arduino_write_enable(data_is_valid_from_spi_module), // Toma la señal de validez del wire interno
+        .pwm_out(motor_pwm_signal),                  // Conecta a un pin de salida físico
+        .seg(seven_segment_display)                // Conecta a pines de salida físicos
+    );
+
+endmodule

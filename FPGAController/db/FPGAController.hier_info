@@ -1,0 +1,64 @@
+|FpgaController
+FPGA_clk => FPGA_clk.IN1
+FPGA_reset => FPGA_reset.IN1
+arduino_sclk => arduino_sclk.IN1
+arduino_mosi => arduino_mosi.IN1
+arduino_ss_n => arduino_ss_n.IN1
+fpga_physical_miso << Spi_slave_module:spi_unit.miso_out
+motor_pwm_signal << <GND>
+seven_segment_display[0] << <GND>
+seven_segment_display[1] << <GND>
+seven_segment_display[2] << <GND>
+seven_segment_display[3] << <GND>
+seven_segment_display[4] << <GND>
+seven_segment_display[5] << <GND>
+seven_segment_display[6] << <GND>
+
+
+|FpgaController|Spi_slave_module:spi_unit
+clk => shift_reg_miso[0].CLK
+clk => shift_reg_miso[1].CLK
+clk => shift_reg_miso[2].CLK
+clk => shift_reg_miso[3].CLK
+clk => shift_reg_miso[4].CLK
+clk => shift_reg_miso[5].CLK
+clk => shift_reg_miso[6].CLK
+clk => shift_reg_miso[7].CLK
+clk => data_valid_pulse_reg.CLK
+clk => data_buffer_reg[0].CLK
+clk => data_buffer_reg[1].CLK
+clk => data_buffer_reg[2].CLK
+clk => data_buffer_reg[3].CLK
+clk => bit_count_reg[0].CLK
+clk => bit_count_reg[1].CLK
+clk => shift_reg_mosi[0].CLK
+clk => shift_reg_mosi[1].CLK
+clk => shift_reg_mosi[2].CLK
+clk => shift_reg_mosi[3].CLK
+clk => mosi_sync2.CLK
+clk => mosi_sync1.CLK
+clk => ss_n_sync2.CLK
+clk => ss_n_sync1.CLK
+clk => sclk_sync2.CLK
+clk => sclk_sync1.CLK
+reset => clear_mosi_logic_condition.IN1
+reset => reset_counter_condition.IN1
+reset => load_ack_condition.IN1
+reset => sclk_rising_edge_event.IN1
+reset => ss_n_active.IN1
+reset => d_data_buffer[3].IN1
+reset => d_data_buffer[2].IN1
+reset => d_data_buffer[1].IN1
+reset => d_data_buffer[0].IN1
+reset => d_data_valid_pulse.IN1
+sclk_in => sclk_sync1.DATAIN
+mosi_in => mosi_sync1.DATAIN
+ss_n_in => ss_n_sync1.DATAIN
+spi_data_out[0] <= data_buffer_reg[0].DB_MAX_OUTPUT_PORT_TYPE
+spi_data_out[1] <= data_buffer_reg[1].DB_MAX_OUTPUT_PORT_TYPE
+spi_data_out[2] <= data_buffer_reg[2].DB_MAX_OUTPUT_PORT_TYPE
+spi_data_out[3] <= data_buffer_reg[3].DB_MAX_OUTPUT_PORT_TYPE
+spi_data_valid_out <= data_valid_pulse_reg.DB_MAX_OUTPUT_PORT_TYPE
+miso_out <= shift_reg_miso[7].DB_MAX_OUTPUT_PORT_TYPE
+
+

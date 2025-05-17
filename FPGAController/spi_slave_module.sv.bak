@@ -1,0 +1,176 @@
+//-----------------------------------------------------------------------------
+// Modulo spi_slave_module
+//
+// Descripcion:
+//   Modulo esclavo SPI estructural para recibir 4 bits de datos.
+//   Cumple con restricciones de no usar 'if', 'case', operador ternario.
+//   Opera con el reloj 'clk' del sistema FPGA.
+//
+// Entradas:
+//   clk         : Reloj del sistema FPGA.
+//   reset       : Reset síncrono global, activo alto.
+//   sclk_in     : Reloj SPI desde el maestro.
+//   mosi_in     : Datos (Master Out, Slave In) desde el maestro.
+//   ss_n_in     : Slave Select (activo bajo) desde el maestro.
+//
+// Salidas:
+//   spi_data_out[3:0]      : Datos de 4 bits recibidos via SPI.
+//                            spi_data_out[3] es MSB, spi_data_out[0] es LSB.
+//   spi_data_valid_out     : Pulso de 1 ciclo de 'clk' indicando nuevos datos válidos.
+//-----------------------------------------------------------------------------
+module spi_slave_module (
+    input  logic clk,
+    input  logic reset,
+    input  logic sclk_in,
+    input  logic mosi_in,
+    input  logic ss_n_in,
+    output logic [3:0] spi_data_out,
+    output logic spi_data_valid_out
+);
+
+    // Registros para sincronizar entradas asíncronas SPI con 'clk'
+    logic sclk_sync1, sclk_sync2;
+    logic ss_n_sync1, ss_n_sync2;
+    logic mosi_sync1, mosi_sync2;
+
+    // Wires para eventos y estados derivados
+    wire sclk_rising_edge_event;
+    wire ss_n_falling_edge_event;
+    wire ss_n_active;
+
+    // Registro de desplazamiento para recibir bits de MOSI
+    logic [3:0] shift_reg;
+    wire  [3:0] d_shift_reg; // Logica del proximo estado para shift_reg
+
+    // Contador de bits recibidos (0 a 3 para 4 bits)
+    logic [1:0] bit_count_reg;
+    wire  [1:0] d_bit_count;   // Logica del proximo estado para bit_count_reg
+
+    // Buffer para los datos completamente recibidos
+    logic [3:0] data_buffer_reg;
+    wire  [3:0] d_data_buffer; // Logica del proximo estado para data_buffer_reg
+
+    // Registro para generar el pulso de datos validos
+    logic data_valid_pulse_reg;
+    wire  d_data_valid_pulse;
+
+    //-------------------------------------------------------------------------
+    // 1. Sincronizacion de senales de entrada SPI y deteccion de eventos
+    //-------------------------------------------------------------------------
+    // Sincronizadores de doble flip-flop para sclk_in, ss_n_in, mosi_in
+    // (Se actualizan en el bloque always_ff)
+
+    // Deteccion de flanco de subida de SCLK (sincronizado con clk)
+    assign sclk_rising_edge_event = ~reset & sclk_sync1 & ~sclk_sync2;
+
+    // Deteccion de flanco de bajada de SS_n (indica inicio de transaccion)
+    assign ss_n_falling_edge_event = ~reset & ~ss_n_sync1 & ss_n_sync2;
+
+    // Estado de SS_n activo (sincronizado y negado)
+    assign ss_n_active = ~reset & ~ss_n_sync1; // Usamos ss_n_sync1 para menor latencia
+
+    //-------------------------------------------------------------------------
+    // 2. Logica del Registro de Desplazamiento (shift_reg)
+    //-------------------------------------------------------------------------
+    // Se desplaza cuando SS_n está activo Y ocurre un flanco de subida de SCLK.
+    // MOSI entra por el LSB (shift_reg[0]) y se desplaza hacia el MSB (shift_reg[3]).
+    // Al final, SR = {MSB_recibido, ..., LSB_recibido} -> shift_reg[3] es MSB.
+    wire shift_enable;
+    assign shift_enable = ss_n_active & sclk_rising_edge_event;
+
+    wire clear_shift_reg_condition;
+    assign clear_shift_reg_condition = reset | ss_n_falling_edge_event;
+
+    // d_shift_reg[0] es donde entra el nuevo bit mosi_sync2
+    assign d_shift_reg[0] = ~clear_shift_reg_condition & ( (shift_enable & mosi_sync2)   | (~shift_enable & shift_reg[0]) );
+    assign d_shift_reg[1] = ~clear_shift_reg_condition & ( (shift_enable & shift_reg[0]) | (~shift_enable & shift_reg[1]) );
+    assign d_shift_reg[2] = ~clear_shift_reg_condition & ( (shift_enable & shift_reg[1]) | (~shift_enable & shift_reg[2]) );
+    assign d_shift_reg[3] = ~clear_shift_reg_condition & ( (shift_enable & shift_reg[2]) | (~shift_enable & shift_reg[3]) );
+
+    //-------------------------------------------------------------------------
+    // 3. Logica del Contador de Bits (bit_count_reg)
+    //-------------------------------------------------------------------------
+    // Cuenta los bits recibidos (0, 1, 2, 3).
+    // Se resetea a 0 con 'reset' o al inicio de una transaccion SPI (ss_n_falling_edge).
+    // Se incrementa cuando 'shift_enable' es verdadero, si no ha llegado al final.
+    wire counter_is_3; // Indica que el contador está en 3 (binario 11)
+    assign counter_is_3 = bit_count_reg[1] & bit_count_reg[0];
+
+    wire reset_counter_condition;
+    assign reset_counter_condition = reset | ss_n_falling_edge_event;
+
+    wire increment_counter_condition;
+    assign increment_counter_condition = shift_enable & ~counter_is_3; // Solo incrementa si no ha llegado a 3
+
+    // Logica de incremento para un contador de 2 bits (Q_next = Q_current + 1)
+    wire bit_count_incremented_val_0;
+    wire bit_count_incremented_val_1;
+    assign bit_count_incremented_val_0 = ~bit_count_reg[0]; // Q0_next = ~Q0
+    assign bit_count_incremented_val_1 = bit_count_reg[1] ^ bit_count_reg[0]; // Q1_next = Q1 ^ Q0
+
+    // Logica del proximo estado para d_bit_count[0]
+    assign d_bit_count[0] = ~reset_counter_condition & (
+                                (increment_counter_condition & bit_count_incremented_val_0) |
+                                (~increment_counter_condition & bit_count_reg[0])
+                            );
+    // Logica del proximo estado para d_bit_count[1]
+    assign d_bit_count[1] = ~reset_counter_condition & (
+                                (increment_counter_condition & bit_count_incremented_val_1) |
+                                (~increment_counter_condition & bit_count_reg[1])
+                            );
+
+    //-------------------------------------------------------------------------
+    // 4. Logica del Buffer de Datos y Pulso de Validez
+    //-------------------------------------------------------------------------
+    // Los datos del shift_reg se cargan en data_buffer_reg cuando se recibe el ultimo bit.
+    // Esto ocurre cuando shift_enable es '1' y el contador de bits está en 3.
+    wire load_data_buffer_condition;
+    assign load_data_buffer_condition = shift_enable & counter_is_3;
+
+    // Logica del proximo estado para data_buffer_reg
+    assign d_data_buffer[0] = ~reset & ( (load_data_buffer_condition & shift_reg[0]) | (~load_data_buffer_condition & data_buffer_reg[0]) );
+    assign d_data_buffer[1] = ~reset & ( (load_data_buffer_condition & shift_reg[1]) | (~load_data_buffer_condition & data_buffer_reg[1]) );
+    assign d_data_buffer[2] = ~reset & ( (load_data_buffer_condition & shift_reg[2]) | (~load_data_buffer_condition & data_buffer_reg[2]) );
+    assign d_data_buffer[3] = ~reset & ( (load_data_buffer_condition & shift_reg[3]) | (~load_data_buffer_condition & data_buffer_reg[3]) );
+
+    // Logica del proximo estado para el pulso de validez de datos
+    // Se activa por un ciclo de 'clk' cuando load_data_buffer_condition es verdadera.
+    assign d_data_valid_pulse = ~reset & load_data_buffer_condition;
+
+    //-------------------------------------------------------------------------
+    // 5. Asignaciones de Salida del Modulo
+    //-------------------------------------------------------------------------
+    assign spi_data_out = data_buffer_reg;
+    assign spi_data_valid_out = data_valid_pulse_reg;
+
+    //-------------------------------------------------------------------------
+    // 6. Bloque de Registros Sincronos (actualizacion en flanco de clk)
+    //-------------------------------------------------------------------------
+    always_ff @(posedge clk) begin
+        // Sincronizadores de entrada
+        sclk_sync1 <= sclk_in;
+        sclk_sync2 <= sclk_sync1;
+        ss_n_sync1 <= ss_n_in;
+        ss_n_sync2 <= ss_n_sync1;
+        mosi_sync1 <= mosi_in;
+        mosi_sync2 <= mosi_sync1;
+
+        // Actualizacion de registros principales
+        // El reset síncrono ya está incorporado en la lógica 'd_...' de cada registro.
+        shift_reg[0] <= d_shift_reg[0];
+        shift_reg[1] <= d_shift_reg[1];
+        shift_reg[2] <= d_shift_reg[2];
+        shift_reg[3] <= d_shift_reg[3];
+
+        bit_count_reg[0] <= d_bit_count[0];
+        bit_count_reg[1] <= d_bit_count[1];
+
+        data_buffer_reg[0] <= d_data_buffer[0];
+        data_buffer_reg[1] <= d_data_buffer[1];
+        data_buffer_reg[2] <= d_data_buffer[2];
+        data_buffer_reg[3] <= d_data_buffer[3];
+
+        data_valid_pulse_reg <= d_data_valid_pulse;
+    end
+
+endmodule
