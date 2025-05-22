@@ -2,7 +2,76 @@
 	"partitions" : [
 		{
 			"name" : "Top",
-			"pins" : []
+			"pins" : [
+				{
+					"name" : "fpga_physical_miso",
+					"strict" : false
+				},
+				{
+					"name" : "led_outputs[0]",
+					"strict" : false
+				},
+				{
+					"name" : "led_outputs[1]",
+					"strict" : false
+				},
+				{
+					"name" : "led_outputs[2]",
+					"strict" : false
+				},
+				{
+					"name" : "led_outputs[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[6]",
+					"strict" : false
+				},
+				{
+					"name" : "FPGA_reset",
+					"strict" : false
+				},
+				{
+					"name" : "FPGA_clk",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_ss_n",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_sclk",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_mosi",
+					"strict" : false
+				}
+			]
 		}
 	]
 }

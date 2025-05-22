@@ -1,0 +1,94 @@
+// Nombre del archivo: FpgaSelfTester.sv
+// Módulo para probar LEDs y Display 7-Segmentos contando de 0-F
+// Mantiene la misma interfaz que FpgaController para compatibilidad con Pin Planner.
+
+module FpgaSelfTester (
+    // --- Entradas FÍSICAS a la FPGA (igual que FpgaController) ---
+    input logic FPGA_clk,
+    input logic FPGA_reset,
+    input logic arduino_sclk,         // No se usa en esta lógica de auto-prueba
+    input logic arduino_mosi,         // No se usa en esta lógica de auto-prueba
+    input logic arduino_ss_n,         // No se usa en esta lógica de auto-prueba
+
+    // --- Salidas FÍSICAS de la FPGA (igual que FpgaController) ---
+    output logic fpga_physical_miso,     // Se conectará a un valor fijo
+    output logic [3:0] led_outputs,      // Mostrará el conteo actual
+    output logic [6:0] seven_segment_pins // Mostrará el conteo actual decodificado
+);
+
+    // --- Señales Internas ---
+    logic [3:0] count_reg;          // Contador de 4 bits (0-F)
+    logic       enable_tick;        // Pulso para habilitar el incremento del contador
+
+    wire [6:0] segments_from_bcd_units_cc; // Salida del decodificador BCD (cátodo común)
+    wire [1:0] tens_digit_from_bcd_unused; // Salida de decenas del BCD (no usada aquí)
+
+    // --- 1. Divisor de Frecuencia para generar enable_tick ---
+    // AJUSTA ESTE VALOR según la frecuencia de tu FPGA_clk y la velocidad de conteo deseada.
+    // Ejemplo: Si FPGA_clk es 50MHz, para un cambio aprox. cada 0.5 segundos (2Hz):
+    // COUNTER_MAX_DIVIDER = (50,000,000 / 2) - 1 = 24,999,999
+    // Si FPGA_clk es 25MHz, para un cambio aprox. cada 0.5 segundos (2Hz):
+    // COUNTER_MAX_DIVIDER = (25,000,000 / 2) - 1 = 12,499,999
+    localparam COUNT_MAX_DIVIDER = 24_999_999; // Ejemplo para 50MHz -> ~0.5s de actualización
+
+    logic [$clog2(COUNT_MAX_DIVIDER + 1) - 1 : 0] clk_divider_reg;
+    logic last_enable_tick_state; // Para generar un pulso de un ciclo
+
+    always_ff @(posedge FPGA_clk or posedge FPGA_reset) begin
+        if (FPGA_reset) begin
+            clk_divider_reg <= 0;
+            last_enable_tick_state <= 1'b0;
+        end else begin
+            if (clk_divider_reg == COUNT_MAX_DIVIDER) begin
+                clk_divider_reg <= 0;
+                last_enable_tick_state <= 1'b1; // El tick ocurre aquí
+            end else begin
+                clk_divider_reg <= clk_divider_reg + 1;
+                last_enable_tick_state <= 1'b0;
+            end
+        end
+    end
+    assign enable_tick = last_enable_tick_state; // enable_tick será '1' por un ciclo de FPGA_clk
+
+    // --- 2. Contador de 4 bits (0-F) ---
+    always_ff @(posedge FPGA_clk or posedge FPGA_reset) begin
+        if (FPGA_reset) begin
+            count_reg <= 4'h0;
+        end else if (enable_tick) begin // Incrementar solo cuando enable_tick es '1'
+            if (count_reg == 4'hF) begin
+                count_reg <= 4'h0;
+            else begin
+                count_reg <= count_reg + 1;
+            end
+        end
+    end
+
+    // --- 3. Conectar contador a los LEDs ---
+    assign led_outputs = count_reg;
+
+    // --- 4. Instancia del Decodificador BCD ---
+    // Se asume que tu módulo 'BCD' (definido en Hex_to_7seg_decoder.sv o similar)
+    // está disponible y sus salidas 'units_seg' son para cátodo común (1 = ON).
+    BCD bcd_decoder_unit (
+        .x(count_reg),                       // La entrada al decodificador es el valor del contador
+        .units_seg(segments_from_bcd_units_cc),
+        .tens_seg(tens_digit_from_bcd_unused) // La salida de decenas no se usa aquí
+    );
+
+    // --- 5. Conectar a los pines del display de 7 segmentos (ánodo común) ---
+    // Invierte la salida del decodificador BCD (que es cátodo común)
+    // para un display de ánodo común (0 = ON).
+    assign seven_segment_pins[0] = ~segments_from_bcd_units_cc[0]; // a
+    assign seven_segment_pins[1] = ~segments_from_bcd_units_cc[1]; // b
+    assign seven_segment_pins[2] = ~segments_from_bcd_units_cc[2]; // c
+    assign seven_segment_pins[3] = ~segments_from_bcd_units_cc[3]; // d
+    assign seven_segment_pins[4] = ~segments_from_bcd_units_cc[4]; // e
+    assign seven_segment_pins[5] = ~segments_from_bcd_units_cc[5]; // f
+    assign seven_segment_pins[6] = ~segments_from_bcd_units_cc[6]; // g
+    // Alternativa más corta (si el orden de bits es consistente):
+    // assign seven_segment_pins = ~segments_from_bcd_units_cc;
+
+    // --- 6. Manejar la salida MISO no utilizada ---
+    assign fpga_physical_miso = 1'b0; // Se puede poner a '0' o '1' o 'z' si el pin lo soporta y es adecuado
+
+endmodule

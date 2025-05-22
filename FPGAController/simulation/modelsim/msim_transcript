@@ -13,7 +13,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work altera_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_primitives.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:06 on May 17,2025
+# Start time: 18:17:00 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work altera_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_primitives.v 
 # -- Compiling module global
 # -- Compiling module carry
@@ -95,7 +95,7 @@
 # 	alt_iobuf_diff
 # 	alt_bidir_diff
 # 	alt_bidir_buf
-# End time: 00:25:07 on May 17,2025, Elapsed time: 0:00:01
+# End time: 18:17:01 on May 21,2025, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/lpm_ver
@@ -106,7 +106,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work lpm_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/220model.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:07 on May 17,2025
+# Start time: 18:17:01 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work lpm_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/220model.v 
 # -- Compiling module LPM_MEMORY_INITIALIZATION
 # -- Compiling module LPM_HINT_EVALUATION
@@ -170,7 +170,7 @@
 # 	lpm_inpad
 # 	lpm_outpad
 # 	lpm_bipad
-# End time: 00:25:07 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:01 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/sgate_ver
@@ -181,7 +181,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work sgate_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:07 on May 17,2025
+# Start time: 18:17:01 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work sgate_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v 
 # -- Compiling module oper_add
 # -- Compiling module oper_addsub
@@ -223,7 +223,7 @@
 # 	oper_decoder
 # 	oper_bus_mux
 # 	oper_latch
-# End time: 00:25:07 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:01 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/altera_mf_ver
@@ -234,7 +234,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work altera_mf_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_mf.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:07 on May 17,2025
+# Start time: 18:17:02 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work altera_mf_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_mf.v 
 # -- Compiling module lcell
 # -- Compiling module ALTERA_MF_MEMORY_INITIALIZATION
@@ -364,7 +364,7 @@
 # 	alt_fault_injection
 # 	sld_virtual_jtag_basic
 # 	altsource_probe
-# End time: 00:25:08 on May 17,2025, Elapsed time: 0:00:01
+# End time: 18:17:02 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/altera_lnsim_ver
@@ -375,7 +375,7 @@
 # Modifying modelsim.ini
 # vlog -sv -work altera_lnsim_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_lnsim.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:09 on May 17,2025
+# Start time: 18:17:03 on May 21,2025
 # vlog -reportprogress 300 -sv -work altera_lnsim_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_lnsim.sv 
 # -- Compiling package altera_lnsim_functions
 # -- Compiling package altera_generic_pll_functions
@@ -458,7 +458,7 @@
 # 	altera_iopll
 # 	fourteennm_altera_iopll
 # 	fourteennm_simple_iopll
-# End time: 00:25:09 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:03 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/cyclonev_ver
@@ -469,7 +469,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work cyclonev_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_atoms_ncrypt.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:09 on May 17,2025
+# Start time: 18:17:03 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work cyclonev_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_atoms_ncrypt.v 
 # ** Warning: (vlog-2083) <protected>(<protected>): Carriage return (0x0D) is not followed by a newline (0x0A).
 # ** Warning: (vlog-2083) <protected>(<protected>): Carriage return (0x0D) is not followed by a newline (0x0A).
@@ -483,19 +483,19 @@
 # ** Warning: (vlog-2083) <protected>(<protected>): Carriage return (0x0D) is not followed by a newline (0x0A).
 # 
 # Top level modules:
-# End time: 00:25:11 on May 17,2025, Elapsed time: 0:00:02
+# End time: 18:17:05 on May 21,2025, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 10
 # vlog -vlog01compat -work cyclonev_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_hmi_atoms_ncrypt.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:11 on May 17,2025
+# Start time: 18:17:05 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work cyclonev_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_hmi_atoms_ncrypt.v 
 # 
 # Top level modules:
-# End time: 00:25:13 on May 17,2025, Elapsed time: 0:00:02
+# End time: 18:17:07 on May 21,2025, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0
 # vlog -vlog01compat -work cyclonev_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cyclonev_atoms.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:13 on May 17,2025
+# Start time: 18:17:07 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work cyclonev_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cyclonev_atoms.v 
 # -- Compiling UDP CYCLONEV_PRIM_DFFE
 # -- Compiling UDP CYCLONEV_PRIM_DFFEAS
@@ -635,7 +635,7 @@
 # 	cyclonev_mem_phy
 # 	cyclonev_oscillator
 # 	cyclonev_hps_interface_fpga2sdram
-# End time: 00:25:13 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:07 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/cyclonev_hssi_ver
@@ -646,15 +646,15 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work cyclonev_hssi_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_hssi_atoms_ncrypt.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:13 on May 17,2025
+# Start time: 18:17:07 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work cyclonev_hssi_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_hssi_atoms_ncrypt.v 
 # 
 # Top level modules:
-# End time: 00:25:15 on May 17,2025, Elapsed time: 0:00:02
+# End time: 18:17:09 on May 21,2025, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0
 # vlog -vlog01compat -work cyclonev_hssi_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cyclonev_hssi_atoms.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:15 on May 17,2025
+# Start time: 18:17:09 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work cyclonev_hssi_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cyclonev_hssi_atoms.v 
 # -- Compiling module cyclonev_hssi_8g_pcs_aggregate
 # -- Compiling module cyclonev_hssi_8g_rx_pcs
@@ -754,7 +754,7 @@
 # 	arriav_hssi_avmm_interface
 # 	arriav_hssi_pma_hi_pmaif
 # 	arriav_hssi_pma_hi_xcvrif
-# End time: 00:25:15 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:09 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/cyclonev_pcie_hip_ver
@@ -765,7 +765,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work cyclonev_pcie_hip_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_pcie_hip_atoms_ncrypt.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:16 on May 17,2025
+# Start time: 18:17:10 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work cyclonev_pcie_hip_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/mentor/cyclonev_pcie_hip_atoms_ncrypt.v 
 # ** Warning: (vlog-2083) <protected>(<protected>): Carriage return (0x0D) is not followed by a newline (0x0A).
 # ** Warning: (vlog-2083) <protected>(<protected>): Carriage return (0x0D) is not followed by a newline (0x0A).
@@ -775,18 +775,18 @@
 # ** Warning: (vlog-2083) <protected>(<protected>): Carriage return (0x0D) is not followed by a newline (0x0A).
 # 
 # Top level modules:
-# End time: 00:25:18 on May 17,2025, Elapsed time: 0:00:02
+# End time: 18:17:12 on May 21,2025, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 6
 # vlog -vlog01compat -work cyclonev_pcie_hip_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cyclonev_pcie_hip_atoms.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:18 on May 17,2025
+# Start time: 18:17:12 on May 21,2025
 # vlog -reportprogress 300 -vlog01compat -work cyclonev_pcie_hip_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cyclonev_pcie_hip_atoms.v 
 # -- Compiling module cyclonev_hd_altpe2_hip_top
 # -- Compiling module arriav_hd_altpe2_hip_top
 # 
 # Top level modules:
 # 	cyclonev_hd_altpe2_hip_top
-# End time: 00:25:18 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:12 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # if {[file exists rtl_work]} {
@@ -800,42 +800,54 @@
 # 
 # vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:18 on May 17,2025
+# Start time: 18:17:12 on May 21,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController" E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv 
 # -- Compiling module Spi_slave_module
 # 
 # Top level modules:
 # 	Spi_slave_module
-# End time: 00:25:18 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:12 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:18 on May 17,2025
+# Start time: 18:17:12 on May 21,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController" E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv 
 # -- Compiling module FpgaController
 # 
 # Top level modules:
 # 	FpgaController
-# End time: 00:25:18 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:12 on May 21,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 18:17:12 on May 21,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController" E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv 
+# -- Compiling module BCD
+# 
+# Top level modules:
+# 	BCD
+# End time: 18:17:12 on May 21,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 00:25:18 on May 17,2025
+# Start time: 18:17:12 on May 21,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController" E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv 
 # -- Compiling module Spi_slave_tb
 # 
 # Top level modules:
 # 	Spi_slave_tb
-# End time: 00:25:18 on May 17,2025, Elapsed time: 0:00:00
+# End time: 18:17:13 on May 21,2025, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # 
 # vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  Spi_slave_tb
 # vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" Spi_slave_tb 
-# Start time: 00:25:18 on May 17,2025
+# Start time: 18:17:13 on May 21,2025
 # Loading sv_std.std
 # Loading work.Spi_slave_tb
+# Loading work.FpgaController
 # Loading work.Spi_slave_module
+# Loading work.BCD
 # 
 # add wave *
 # view structure
@@ -843,49 +855,87 @@
 # view signals
 # .main_pane.objects.interior.cs.body.tree
 # run -all
-# ===========================================
-#   INICIO DE LA SIMULACION SPI_SLAVE_MODULE 
-# ===========================================
-# Tiempo: 100000 ns - Reset liberado.
-# Tiempo: 200000 ns - Enviar Velocidad 5: SS_n LOW, enviando byte 8'b01010000
-# Tiempo: 8220000 ns - Enviar Velocidad 5: SS_n HIGH, byte recibido 8'b10100101
+# ===================================================
+#   STARTING SIMULATION for FpgaController 
+# ===================================================
+# Time: 200000 ns - Reset Released.
+# Time: 400000 ns - Send 4'h5 (0101): SS_n LOW, MOSI byte 8'b01010000
+# Time: 2020000 ns - Send 4'h5 (0101): SS_n HIGH, MISO byte received 8'b00000000
 # 
-# --- Test Case: Enviar Velocidad 5 ---
-# Maestro envió (velocidad 4-bits): 4'b0101 (Byte: 8'b01010000)
-# ACK esperado por Maestro: 8'ha5 (8'b10100101)
-# ACK obtenido por Maestro: 8'ha5 (8'b10100101)
-# Resultado ACK: PASSED
-# Dato esperado en salida del DUT (spi_data_out_dut): 4'b0101
-# Dato obtenido en salida del DUT (spi_data_out_dut): 4'b0101
-# Resultado Dato DUT: PASSED
-# Tiempo: 10360000 ns - Enviar Velocidad 10 (0xA): SS_n LOW, enviando byte 8'b10100000
-# Tiempo: 18380000 ns - Enviar Velocidad 10 (0xA): SS_n HIGH, byte recibido 8'b10100101
+# --- Test Case: Send 4'h5 (0101) ---
+# Time: 2120000 ns
+# MCU Sent MOSI (4-bit data): 4'b0101 (0x5)
+# MCU Sent MOSI (full byte):  8'b01010000 (0x50)
+# MISO Expected by MCU (based on prev LED 0): 8'b00000000 (0x00)
+# MISO Received by MCU:                     8'b00000000 (0x00)
+# MISO Check: PASSED
+# LED Output Expected (current data): 4'b0101 (0x5)
+# LED Output Actual from DUT:         4'b0101 (0x5)
+# LED Output Check: PASSED
+# 7-Seg Pins Expected (for 0x5 CA): 7'b0010010 (a=0,b=1,c=0,d=0,e=1,f=0,g=0)
+# 7-Seg Pins Actual from DUT:        7'b0010010 (a=0,b=1,c=0,d=0,e=1,f=0,g=0)
+# 7-Segment Pins Check: PASSED
+# --- Test Case: Send 4'h5 (0101) PASSED ---
+# Time: 2520000 ns - Send 4'hA (1010): SS_n LOW, MOSI byte 8'b10100000
+# Time: 4140000 ns - Send 4'hA (1010): SS_n HIGH, MISO byte received 8'b01010000
 # 
-# --- Test Case: Enviar Velocidad 10 (0xA) ---
-# Maestro envió (velocidad 4-bits): 4'b1010 (Byte: 8'b10100000)
-# ACK esperado por Maestro: 8'ha5 (8'b10100101)
-# ACK obtenido por Maestro: 8'ha5 (8'b10100101)
-# Resultado ACK: PASSED
-# Dato esperado en salida del DUT (spi_data_out_dut): 4'b1010
-# Dato obtenido en salida del DUT (spi_data_out_dut): 4'b1010
-# Resultado Dato DUT: PASSED
-# Tiempo: 20520000 ns - Enviar Velocidad 0: SS_n LOW, enviando byte 8'b00000000
-# Tiempo: 28540000 ns - Enviar Velocidad 0: SS_n HIGH, byte recibido 8'b10100101
+# --- Test Case: Send 4'hA (1010) ---
+# Time: 4240000 ns
+# MCU Sent MOSI (4-bit data): 4'b1010 (0xa)
+# MCU Sent MOSI (full byte):  8'b10100000 (0xa0)
+# MISO Expected by MCU (based on prev LED 5): 8'b01010000 (0x50)
+# MISO Received by MCU:                     8'b01010000 (0x50)
+# MISO Check: PASSED
+# LED Output Expected (current data): 4'b1010 (0xa)
+# LED Output Actual from DUT:         4'b1010 (0xa)
+# LED Output Check: PASSED
+# 7-Seg Pins Expected (for 0xa CA): 7'b0001000 (a=0,b=0,c=0,d=1,e=0,f=0,g=0)
+# 7-Seg Pins Actual from DUT:        7'b1000000 (a=0,b=0,c=0,d=0,e=0,f=0,g=1)
+# ** Error: 7-Segment Pins Check: FAILED
+#    Time: 4240 ns  Scope: Spi_slave_tb.check_transaction File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv Line: 168
+# --- Test Case: Send 4'hA (1010) FAILED ---
+# Time: 4640000 ns - Send 4'hF (1111): SS_n LOW, MOSI byte 8'b11110000
+# Time: 6260000 ns - Send 4'hF (1111): SS_n HIGH, MISO byte received 8'b10100000
 # 
-# --- Test Case: Enviar Velocidad 0 ---
-# Maestro envió (velocidad 4-bits): 4'b0000 (Byte: 8'b00000000)
-# ACK esperado por Maestro: 8'ha5 (8'b10100101)
-# ACK obtenido por Maestro: 8'ha5 (8'b10100101)
-# Resultado ACK: PASSED
-# Dato esperado en salida del DUT (spi_data_out_dut): 4'b0000
-# Dato obtenido en salida del DUT (spi_data_out_dut): 4'b0000
-# Resultado Dato DUT: PASSED
-# ===========================================
-#   FIN DE LA SIMULACION SPI_SLAVE_MODULE    
-# ===========================================
-# ** Note: $finish    : E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv(256)
-#    Time: 30680 ns  Iteration: 0  Instance: /Spi_slave_tb
+# --- Test Case: Send 4'hF (1111) ---
+# Time: 6360000 ns
+# MCU Sent MOSI (4-bit data): 4'b1111 (0xf)
+# MCU Sent MOSI (full byte):  8'b11110000 (0xf0)
+# MISO Expected by MCU (based on prev LED a): 8'b10100000 (0xa0)
+# MISO Received by MCU:                     8'b10100000 (0xa0)
+# MISO Check: PASSED
+# LED Output Expected (current data): 4'b1111 (0xf)
+# LED Output Actual from DUT:         4'b1111 (0xf)
+# LED Output Check: PASSED
+# 7-Seg Pins Expected (for 0xf CA): 7'b0001110 (a=0,b=1,c=1,d=1,e=0,f=0,g=0)
+# 7-Seg Pins Actual from DUT:        7'b0010010 (a=0,b=1,c=0,d=0,e=1,f=0,g=0)
+# ** Error: 7-Segment Pins Check: FAILED
+#    Time: 6360 ns  Scope: Spi_slave_tb.check_transaction File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv Line: 168
+# --- Test Case: Send 4'hF (1111) FAILED ---
+# Time: 6760000 ns - Send 4'h0 (0000): SS_n LOW, MOSI byte 8'b00000000
+# Time: 8380000 ns - Send 4'h0 (0000): SS_n HIGH, MISO byte received 8'b11110000
+# 
+# --- Test Case: Send 4'h0 (0000) ---
+# Time: 8480000 ns
+# MCU Sent MOSI (4-bit data): 4'b0000 (0x0)
+# MCU Sent MOSI (full byte):  8'b00000000 (0x00)
+# MISO Expected by MCU (based on prev LED f): 8'b11110000 (0xf0)
+# MISO Received by MCU:                     8'b11110000 (0xf0)
+# MISO Check: PASSED
+# LED Output Expected (current data): 4'b0000 (0x0)
+# LED Output Actual from DUT:         4'b0000 (0x0)
+# LED Output Check: PASSED
+# 7-Seg Pins Expected (for 0x0 CA): 7'b1000000 (a=0,b=0,c=0,d=0,e=0,f=0,g=1)
+# 7-Seg Pins Actual from DUT:        7'b1000000 (a=0,b=0,c=0,d=0,e=0,f=0,g=1)
+# 7-Segment Pins Check: PASSED
+# --- Test Case: Send 4'h0 (0000) PASSED ---
+# 
+# ===================================================
+#   SIMULATION FINISHED for FpgaController 
+# ===================================================
+# ** Note: $finish    : E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv(284)
+#    Time: 8880 ns  Iteration: 0  Instance: /Spi_slave_tb
 # 1
-# Break in Module Spi_slave_tb at E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv line 256
-# End time: 00:25:56 on May 17,2025, Elapsed time: 0:00:38
-# Errors: 0, Warnings: 0
+# Break in Module Spi_slave_tb at E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv line 284
+# End time: 18:26:55 on May 21,2025, Elapsed time: 0:09:42
+# Errors: 2, Warnings: 0

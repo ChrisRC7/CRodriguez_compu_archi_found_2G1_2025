@@ -1,258 +1,286 @@
-// Testbench para Spi_slave_module (con MISO para handshake ACK)
+// Testbench for FpgaController
 `timescale 1ns / 1ps
 
 module Spi_slave_tb;
 
-    // Parámetros del Testbench
-    localparam CLK_PERIOD_FPGA = 20;  // Periodo del reloj de la FPGA (ej. 50MHz -> 20ns)
-    localparam SCLK_PERIOD_SPI = 1000; // Periodo del reloj SPI (ej. 1MHz -> 1000ns)
-                                       // Debe ser significativamente más lento que CLK_PERIOD_FPGA
-                                       // SCLK_HALF_PERIOD = SCLK_PERIOD_SPI / 2
-    localparam ACK_EXPECTED_FROM_FPGA = 8'hA5; // El ACK que esperamos de la FPGA
+    // Testbench Parameters
+    localparam CLK_PERIOD_FPGA = 20;  // Period for FPGA_clk (e.g., 50MHz)
+    localparam SCLK_PERIOD_SPI = 200; // Period for SPI SCLK (e.g., 5MHz)
+                                      // Must be multiple of CLK_PERIOD_FPGA for simple relation
+                                      // and significantly slower. SCLK_PERIOD_SPI should be >= 2*CLK_PERIOD_FPGA * 8 (for 8 bits minimum)
+                                      // Let's make SCLK much slower: 200ns (5MHz) vs FPGA clk 20ns (50MHz)
 
-    // Señales para conectar al DUT (Spi_slave_module)
-    logic clk_fpga_tb;
-    logic reset_tb;
-    logic sclk_spi_tb;
-    logic mosi_tb;
-    logic ss_n_tb;
+    // Signals to connect to the DUT (FpgaController)
+    logic FPGA_clk_tb;
+    logic FPGA_reset_tb;
+    logic arduino_sclk_tb;
+    logic arduino_mosi_tb;
+    logic arduino_ss_n_tb;
 
-    logic [3:0] spi_data_out_dut;       // Datos recibidos por la FPGA
-    logic       spi_data_valid_out_dut; // Pulso de validez de datos
-    logic       miso_dut;               // Datos enviados por la FPGA (ACK)
+    logic fpga_physical_miso_dut;
+    logic [3:0] led_outputs_dut;
+    logic [6:0] seven_segment_pins_dut;
 
-    // Señales internas del Testbench y para verificación
-    logic [7:0] byte_to_send_tb;        // Byte que el "Arduino" simulado enviará
-    logic [3:0] speed_value_to_send_tb; // Valor de velocidad de 4 bits
-    logic [7:0] byte_received_from_fpga_tb; // Byte recibido del MISO de la FPGA
-    integer     bit_count_spi_tb;
+    // Internal Testbench signals
+    logic [3:0] data_to_send_mcu;         // 4-bit data MCU intends to send
+    logic [7:0] byte_to_send_mosi_tb;     // 8-bit MOSI data (4-bit data in MSBs)
+    logic [7:0] byte_received_miso_tb;    // 8-bit MISO data received by MCU
+    logic [3:0] previous_led_data_tb;     // Stores LED data from the PREVIOUS transaction for MISO check
+    string      current_test_case_name;
 
-    string      test_case_name;
+    // For capturing the data_valid pulse from the SPI slave within FpgaController
+    // The FpgaController doesn't directly output the spi_data_valid_out,
+    // but we can infer its occurrence by checking led_outputs_dut.
+    // If precise checking of data_is_valid_from_spi (internal to FpgaController) is needed,
+    // that signal would need to be an output of FpgaController or use $root.path.to.signal.
 
-    // Instancia del Device Under Test (DUT)
-    // Asegúrate de que el nombre 'Spi_slave_module' coincida con tu módulo
-    Spi_slave_module dut (
-        .clk(clk_fpga_tb),
-        .reset(reset_tb),
-        .sclk_in(sclk_spi_tb),
-        .mosi_in(mosi_tb),
-        .ss_n_in(ss_n_tb),
-        .spi_data_out(spi_data_out_dut),
-        .spi_data_valid_out(spi_data_valid_out_dut),
-        .miso_out(miso_dut)
+    // Instantiation of the Device Under Test (DUT)
+    FpgaController dut (
+        .FPGA_clk(FPGA_clk_tb),
+        .FPGA_reset(FPGA_reset_tb),
+        .arduino_sclk(arduino_sclk_tb),
+        .arduino_mosi(arduino_mosi_tb),
+        .arduino_ss_n(arduino_ss_n_tb),
+        .fpga_physical_miso(fpga_physical_miso_dut),
+        .led_outputs(led_outputs_dut),
+        .seven_segment_pins(seven_segment_pins_dut)
     );
 
-    // Generador de reloj para la FPGA
+    // FPGA Clock Generator
     always begin
-        clk_fpga_tb = 1'b0;
+        FPGA_clk_tb = 1'b0;
         #(CLK_PERIOD_FPGA / 2);
-        clk_fpga_tb = 1'b1;
+        FPGA_clk_tb = 1'b1;
         #(CLK_PERIOD_FPGA / 2);
     end
 
-    // Tarea para simular una transacción SPI completa (envío de 1 byte y recepción de 1 byte)
+    // SPI Transfer Task (Master perspective: sends 8 bits, receives 8 bits)
+    // Assumes SPI Mode 0 (CPOL=0, CPHA=0)
     task spi_transfer_byte;
-        input [7:0] data_to_send_master; // Byte que el maestro (TB) envía por MOSI
-        output [7:0] data_received_master; // Byte que el maestro (TB) recibe por MISO
-
+        input  [7:0] data_to_send_master;
+        output [7:0] data_received_master;
         integer i;
-        logic temp_miso_bit;
+
         data_received_master = 8'b0;
+        arduino_sclk_tb = 1'b0; // Ensure SCLK starts low
 
-        // Simular 8 ciclos de SCLK para transferir 1 byte
-        // Asumiendo SPI Modo 0 (CPOL=0, CPHA=0):
-        // MOSI cambia antes del flanco ascendente de SCLK (o en el descendente anterior)
-        // MOSI se muestrea en el flanco ascendente de SCLK
-        // MISO cambia después del flanco descendente de SCLK y es estable para el flanco ascendente
-        // (o más simple: MISO es muestreado por el maestro en el flanco ascendente de SCLK)
         for (i = 0; i < 8; i = i + 1) begin
-            // Maestro pone el bit MOSI (MSB primero)
-            mosi_tb = data_to_send_master[7-i];
+            // Set MOSI: Data is stable before SCLK rising edge
+            arduino_mosi_tb = data_to_send_master[7-i]; // MSB first
 
-            // Flanco descendente de SCLK (para que el esclavo pueda cambiar MISO)
-            sclk_spi_tb = 1'b0;
-            #(SCLK_PERIOD_SPI / 2);
+            #(SCLK_PERIOD_SPI / 2); // Half period for setup
 
-            // Flanco ascendente de SCLK
-            sclk_spi_tb = 1'b1;
-            // En este flanco:
-            // - El esclavo muestrea MOSI
-            // - El maestro muestrea MISO
-            // Pequeño delay para asegurar que MISO del DUT se haya propagado
-            #1; // Ajustar si es necesario, o muestrear justo antes del siguiente flanco descendente
-            temp_miso_bit = miso_dut;
-            data_received_master = (data_received_master << 1) | temp_miso_bit;
-            #(SCLK_PERIOD_SPI / 2 - 1); // Resto del semiperiodo alto de SCLK
+            // SCLK Rising Edge: Slave samples MOSI, Master samples MISO
+            arduino_sclk_tb = 1'b1;
+            #1; // Small delay for MISO to be valid from slave
+            data_received_master = (data_received_master << 1) | fpga_physical_miso_dut;
+            #(SCLK_PERIOD_SPI / 2 - 1);
+
+            // SCLK Falling Edge
+            arduino_sclk_tb = 1'b0;
         end
-        // SCLK vuelve a estado inactivo (bajo para Modo 0)
-        sclk_spi_tb = 1'b0;
-        mosi_tb = 1'bz; // MOSI en alta impedancia o estado de reposo
+        arduino_mosi_tb = 1'bz; // MOSI high-Z after transfer
     endtask
 
-    // Tarea para verificar los resultados de la recepción SPI
-    task check_spi_transaction;
-        input [3:0] expected_data_received_by_fpga;
-        input logic expected_data_valid_pulse;
-        input [7:0] expected_ack_from_fpga;
-        input [7:0] actual_ack_received_by_master;
-        input [3:0] actual_data_on_dut_output;
-        input logic actual_data_valid_on_dut;
+    // Function to decode 4-bit hex to 7-segment common anode (0 = ON)
+    // Uses standard 7-segment mapping: (a,b,c,d,e,f,g)
+	 function automatic logic [6:0] decode_hex_to_7seg_common_anode (input logic [3:0] hex_in);
+		 logic [6:0] segments_cc; // Common Cathode (1=ON)
 
-        $display("\n--- Test Case: %s ---", test_case_name);
-        $display("Maestro envió (velocidad 4-bits): 4'b%b (Byte: 8'b%b)", speed_value_to_send_tb, byte_to_send_tb);
+		 case (hex_in)
+			  // Formato del literal: 7'b<g><f><e><d><c><b><a>
+			  4'h0: segments_cc = 7'b0111111; // a,b,c,d,e,f
+			  4'h1: segments_cc = 7'b0000110; // b,c
+			  4'h2: segments_cc = 7'b1011011; // a,b,d,e,g
+			  4'h3: segments_cc = 7'b1001111; // a,b,c,d,g
+			  4'h4: segments_cc = 7'b1100110; // b,c,f,g
+			  4'h5: segments_cc = 7'b1101101; // a,c,d,f,g
+			  4'h6: segments_cc = 7'b1111101; // a,c,d,e,f,g (o b,c,d,e,f,g para algunos '6')
+			  4'h7: segments_cc = 7'b0000111; // a,b,c
+			  4'h8: segments_cc = 7'b1111111; // a,b,c,d,e,f,g
+			  4'h9: segments_cc = 7'b1101111; // a,b,c,d,f,g
+			  4'hA: segments_cc = 7'b1110111; // a,b,c,e,f,g ('A')
+			  4'hB: segments_cc = 7'b1111100; // c,d,e,f,g   ('b')
+			  4'hC: segments_cc = 7'b0111001; // a,d,e,f     ('C' - forma clásica, o L-shape 7'b1001110)
+			  4'hD: segments_cc = 7'b1011110; // b,c,d,e,g   ('d')
+			  4'hE: segments_cc = 7'b1111001; // a,d,e,f,g   ('E')
+			  4'hF: segments_cc = 7'b1110001; // a,e,f,g     ('F')
+			  default: segments_cc = 7'b0000000; // Apagado
+		 endcase
+		 return ~segments_cc; // Invertir para común ánodo (0=ON)
+	endfunction
 
-        // Verificar ACK recibido por el maestro
-        $display("ACK esperado por Maestro: 8'h%h (8'b%b)", expected_ack_from_fpga, expected_ack_from_fpga);
-        $display("ACK obtenido por Maestro: 8'h%h (8'b%b)", actual_ack_received_by_master, actual_ack_received_by_master);
-        if (actual_ack_received_by_master === expected_ack_from_fpga) begin
-            $display("Resultado ACK: PASSED");
+    // Task to check transaction results
+    task check_transaction;
+        input string    test_name;
+        input logic [3:0] sent_data_4bit_current; // Data sent in current MOSI
+        input logic [7:0] full_mosi_byte_sent_current;
+        input logic [3:0] prev_led_data_for_miso_exp; // LED data from PREVIOUS transaction
+
+        // DUT outputs are read directly for check after settling
+        logic [7:0] expected_miso_byte;
+        logic [3:0] expected_led_outputs;
+        logic [6:0] expected_7seg_pins;
+        automatic bit error_found = 0;
+
+        $display("\n--- Test Case: %s ---", test_name);
+        $display("Time: %0t ns", $time);
+        $display("MCU Sent MOSI (4-bit data): 4'b%b (0x%h)", sent_data_4bit_current, sent_data_4bit_current);
+        $display("MCU Sent MOSI (full byte):  8'b%b (0x%h)", full_mosi_byte_sent_current, full_mosi_byte_sent_current);
+
+        // 1. Check MISO (echo of previous LED data)
+        expected_miso_byte = {prev_led_data_for_miso_exp, 4'b0000};
+        $display("MISO Expected by MCU (based on prev LED %h): 8'b%b (0x%h)", prev_led_data_for_miso_exp, expected_miso_byte, expected_miso_byte);
+        $display("MISO Received by MCU:                     8'b%b (0x%h)", byte_received_miso_tb, byte_received_miso_tb);
+        if (byte_received_miso_tb === expected_miso_byte) begin
+            $display("MISO Check: PASSED");
         end else begin
-            $error("Resultado ACK: FAILED");
+            $error("MISO Check: FAILED");
+            error_found = 1;
         end
 
-        // Esperar a que el pulso de validez del DUT ocurra (o un tiempo razonable)
-        // Esto es simplificado; en un TB más robusto se usaría @(posedge spi_data_valid_out_dut)
-        // Pero spi_data_valid_out_dut es un pulso, así que debemos estar atentos
-        // Por ahora, asumimos que después de la transacción SPI, los datos deben estar listos
-        // y el pulso de validez habrá ocurrido. Para verificar el pulso en sí, necesitaríamos
-        // un monitor o una espera más específica.
-
-        // Verificar datos recibidos por el DUT (después de que data_valid haya ocurrido)
-        // Vamos a esperar un poco más para que los datos se propaguen y spi_data_valid_out_dut se asiente.
-        // Este chequeo es después de que la transacción SPI ha terminado.
-        // El chequeo de spi_data_valid_out_dut es más complejo para un pulso.
-        // Se podría registrar el pulso en el TB.
-        // Por ahora, verificamos el dato en spi_data_out_dut asumiendo que se actualizó.
-
-        // Para verificar spi_data_valid_out_dut como un pulso:
-        // Se necesitaría un monitor en el TB:
-        // logic spi_data_valid_seen_tb = 1'b0;
-        // always @(posedge spi_data_valid_out_dut) spi_data_valid_seen_tb = 1'b1;
-        // Y luego chequear y resetear spi_data_valid_seen_tb.
-
-        // Simplificamos: Verificamos spi_data_out_dut después de un delay.
-        // El pulso de spi_data_valid_out_dut debería ocurrir durante el último ciclo de SCLK.
-        // Vamos a chequearlo un poco después.
-        // Este chequeo es para el dato que el esclavo (DUT) ha capturado.
-        #(CLK_PERIOD_FPGA * 5); // Esperar unos ciclos de FPGA para que se procese
-
-        $display("Dato esperado en salida del DUT (spi_data_out_dut): 4'b%b", expected_data_received_by_fpga);
-        $display("Dato obtenido en salida del DUT (spi_data_out_dut): 4'b%b", spi_data_out_dut);
-        if (spi_data_out_dut === expected_data_received_by_fpga) begin
-            $display("Resultado Dato DUT: PASSED");
+        // 2. Check LED Outputs (should reflect current MOSI data)
+        expected_led_outputs = sent_data_4bit_current;
+        $display("LED Output Expected (current data): 4'b%b (0x%h)", expected_led_outputs, expected_led_outputs);
+        $display("LED Output Actual from DUT:         4'b%b (0x%h)", led_outputs_dut, led_outputs_dut);
+        if (led_outputs_dut === expected_led_outputs) begin
+            $display("LED Output Check: PASSED");
         end else begin
-            $error("Resultado Dato DUT: FAILED");
+            $error("LED Output Check: FAILED");
+            error_found = 1;
         end
 
-        // La verificación de spi_data_valid_out_dut como pulso se deja como mejora,
-        // ya que requiere lógica de monitoreo más compleja en el TB.
-        // Si spi_data_out_dut es correcto, es una fuerte indicación de que spi_data_valid_out_dut funcionó.
+        // 3. Check 7-Segment Display Pins (based on current LED/MOSI data)
+        expected_7seg_pins = decode_hex_to_7seg_common_anode(led_outputs_dut); // Use actual led_outputs_dut for decoder input
+        $display("7-Seg Pins Expected (for 0x%h CA): 7'b%b (a=%b,b=%b,c=%b,d=%b,e=%b,f=%b,g=%b)",
+                               led_outputs_dut, expected_7seg_pins,
+                               expected_7seg_pins[0], expected_7seg_pins[1], expected_7seg_pins[2],
+                               expected_7seg_pins[3], expected_7seg_pins[4], expected_7seg_pins[5],
+                               expected_7seg_pins[6]);
+        $display("7-Seg Pins Actual from DUT:        7'b%b (a=%b,b=%b,c=%b,d=%b,e=%b,f=%b,g=%b)",
+                               seven_segment_pins_dut,
+                               seven_segment_pins_dut[0], seven_segment_pins_dut[1], seven_segment_pins_dut[2],
+                               seven_segment_pins_dut[3], seven_segment_pins_dut[4], seven_segment_pins_dut[5],
+                               seven_segment_pins_dut[6]);
+        if (seven_segment_pins_dut === expected_7seg_pins) begin
+            $display("7-Segment Pins Check: PASSED");
+        end else begin
+            $error("7-Segment Pins Check: FAILED");
+            error_found = 1;
+        end
+
+        // Note: Checking the 'spi_data_valid_out' pulse directly is tricky without making it an output
+        // or using hierarchical references. Correctness of 'led_outputs_dut' implies it pulsed.
+        if(error_found) begin
+            $display("--- Test Case: %s FAILED ---", test_name);
+        end else begin
+            $display("--- Test Case: %s PASSED ---", test_name);
+        end
 
     endtask
 
-
-    // Procedimiento principal de prueba
+    // Main Test Procedure
     initial begin
-        $display("===========================================");
-        $display("  INICIO DE LA SIMULACION SPI_SLAVE_MODULE ");
-        $display("===========================================");
+        $display("===================================================");
+        $display("  STARTING SIMULATION for FpgaController ");
+        $display("===================================================");
 
-        // Inicializar señales
-        clk_fpga_tb = 1'b0;
-        reset_tb = 1'b1;    // Aplicar reset inicialmente
-        sclk_spi_tb = 1'b0; // SCLK inactivo bajo (Modo 0)
-        mosi_tb = 1'bz;   // MOSI en alta impedancia
-        ss_n_tb = 1'b1;   // Slave Select inactivo (alto)
-        bit_count_spi_tb = 0;
+        // Initialize signals
+        FPGA_clk_tb     = 1'b0;
+        FPGA_reset_tb   = 1'b1; // Assert reset
+        arduino_sclk_tb = 1'b0; // SPI Clock idle low
+        arduino_mosi_tb = 1'bz; // MOSI high-Z
+        arduino_ss_n_tb = 1'b1; // Slave Select inactive high
+        previous_led_data_tb = 4'b0000; // LEDs are off (or 0) after reset
 
-        // Liberar reset
-        #(CLK_PERIOD_FPGA * 5);
-        reset_tb = 1'b0;
-        $display("Tiempo: %0t ns - Reset liberado.", $time);
-        #(CLK_PERIOD_FPGA * 5);
+        #(CLK_PERIOD_FPGA * 10); // Hold reset for some cycles
+        FPGA_reset_tb = 1'b0;   // De-assert reset
+        $display("Time: %0t ns - Reset Released.", $time);
+        #(CLK_PERIOD_FPGA * 10); // Wait for reset to propagate
 
+        // --- Test Case 1: Send 4'h5 (0101) ---
+        current_test_case_name = "Send 4'h5 (0101)";
+        data_to_send_mcu = 4'h5;
+        byte_to_send_mosi_tb = {data_to_send_mcu, 4'b0000}; // MOSI format LLLL0000
 
-        // --- Test Case 1: Enviar velocidad 5 (0101) ---
-        test_case_name = "Enviar Velocidad 5";
-        speed_value_to_send_tb = 4'b0101;
-        byte_to_send_tb = (speed_value_to_send_tb & 4'hF) << 4; // 0b01010000
+        arduino_ss_n_tb = 1'b0; // Activate Slave Select
+        $display("Time: %0t ns - %s: SS_n LOW, MOSI byte 8'b%b", $time, current_test_case_name, byte_to_send_mosi_tb);
+        #(CLK_PERIOD_FPGA); // Ensure slave sees SS_n active
 
-        ss_n_tb = 1'b0; // Activar Slave Select
-        $display("Tiempo: %0t ns - %s: SS_n LOW, enviando byte 8'b%b", $time, test_case_name, byte_to_send_tb);
-        #(CLK_PERIOD_FPGA); // Pequeño delay después de SS_n para asegurar que el esclavo lo vea
+        spi_transfer_byte(byte_to_send_mosi_tb, byte_received_miso_tb);
 
-        spi_transfer_byte(byte_to_send_tb, byte_received_from_fpga_tb);
+        arduino_ss_n_tb = 1'b1; // Deactivate Slave Select
+        $display("Time: %0t ns - %s: SS_n HIGH, MISO byte received 8'b%b", $time, current_test_case_name, byte_received_miso_tb);
+        #(CLK_PERIOD_FPGA * 5); // Allow outputs to settle
 
-        ss_n_tb = 1'b1; // Desactivar Slave Select
-        $display("Tiempo: %0t ns - %s: SS_n HIGH, byte recibido 8'b%b", $time, test_case_name, byte_received_from_fpga_tb);
-        #(CLK_PERIOD_FPGA * 2); // Delay después de la transacción
-
-        check_spi_transaction(
-            speed_value_to_send_tb,     // expected_data_received_by_fpga
-            1'b1,                       // expected_data_valid_pulse (difícil de chequear así)
-            ACK_EXPECTED_FROM_FPGA,     // expected_ack_from_fpga
-            byte_received_from_fpga_tb, // actual_ack_received_by_master
-            spi_data_out_dut,           // actual_data_on_dut_output
-            spi_data_valid_out_dut      // actual_data_valid_on_dut
-        );
-        #(SCLK_PERIOD_SPI * 2); // Esperar antes del siguiente test
+        check_transaction(current_test_case_name, data_to_send_mcu, byte_to_send_mosi_tb, previous_led_data_tb);
+        previous_led_data_tb = data_to_send_mcu; // Update for next MISO check
+        #(SCLK_PERIOD_SPI * 2); // Delay between tests
 
 
-        // --- Test Case 2: Enviar velocidad 10 (1010) ---
-        test_case_name = "Enviar Velocidad 10 (0xA)";
-        speed_value_to_send_tb = 4'b1010;
-        byte_to_send_tb = (speed_value_to_send_tb & 4'hF) << 4; // 0b10100000
+        // --- Test Case 2: Send 4'hA (1010) ---
+        current_test_case_name = "Send 4'hA (1010)";
+        data_to_send_mcu = 4'hA;
+        byte_to_send_mosi_tb = {data_to_send_mcu, 4'b0000};
 
-        ss_n_tb = 1'b0; // Activar Slave Select
-        $display("Tiempo: %0t ns - %s: SS_n LOW, enviando byte 8'b%b", $time, test_case_name, byte_to_send_tb);
+        arduino_ss_n_tb = 1'b0;
+        $display("Time: %0t ns - %s: SS_n LOW, MOSI byte 8'b%b", $time, current_test_case_name, byte_to_send_mosi_tb);
         #(CLK_PERIOD_FPGA);
 
-        spi_transfer_byte(byte_to_send_tb, byte_received_from_fpga_tb);
+        spi_transfer_byte(byte_to_send_mosi_tb, byte_received_miso_tb);
 
-        ss_n_tb = 1'b1; // Desactivar Slave Select
-        $display("Tiempo: %0t ns - %s: SS_n HIGH, byte recibido 8'b%b", $time, test_case_name, byte_received_from_fpga_tb);
-        #(CLK_PERIOD_FPGA * 2);
+        arduino_ss_n_tb = 1'b1;
+        $display("Time: %0t ns - %s: SS_n HIGH, MISO byte received 8'b%b", $time, current_test_case_name, byte_received_miso_tb);
+        #(CLK_PERIOD_FPGA * 5);
 
-        check_spi_transaction(
-            speed_value_to_send_tb,
-            1'b1,
-            ACK_EXPECTED_FROM_FPGA,
-            byte_received_from_fpga_tb,
-            spi_data_out_dut,
-            spi_data_valid_out_dut
-        );
+        check_transaction(current_test_case_name, data_to_send_mcu, byte_to_send_mosi_tb, previous_led_data_tb);
+        previous_led_data_tb = data_to_send_mcu;
         #(SCLK_PERIOD_SPI * 2);
 
 
-        // --- Test Case 3: Enviar velocidad 0 (0000) ---
-        test_case_name = "Enviar Velocidad 0";
-        speed_value_to_send_tb = 4'b0000;
-        byte_to_send_tb = (speed_value_to_send_tb & 4'hF) << 4; // 0b00000000
+        // --- Test Case 3: Send 4'hF (1111) ---
+        current_test_case_name = "Send 4'hF (1111)";
+        data_to_send_mcu = 4'hF;
+        byte_to_send_mosi_tb = {data_to_send_mcu, 4'b0000};
 
-        ss_n_tb = 1'b0; // Activar Slave Select
-        $display("Tiempo: %0t ns - %s: SS_n LOW, enviando byte 8'b%b", $time, test_case_name, byte_to_send_tb);
+        arduino_ss_n_tb = 1'b0;
+        $display("Time: %0t ns - %s: SS_n LOW, MOSI byte 8'b%b", $time, current_test_case_name, byte_to_send_mosi_tb);
         #(CLK_PERIOD_FPGA);
 
-        spi_transfer_byte(byte_to_send_tb, byte_received_from_fpga_tb);
+        spi_transfer_byte(byte_to_send_mosi_tb, byte_received_miso_tb);
 
-        ss_n_tb = 1'b1; // Desactivar Slave Select
-        $display("Tiempo: %0t ns - %s: SS_n HIGH, byte recibido 8'b%b", $time, test_case_name, byte_received_from_fpga_tb);
-        #(CLK_PERIOD_FPGA * 2);
+        arduino_ss_n_tb = 1'b1;
+        $display("Time: %0t ns - %s: SS_n HIGH, MISO byte received 8'b%b", $time, current_test_case_name, byte_received_miso_tb);
+        #(CLK_PERIOD_FPGA * 5);
 
-        check_spi_transaction(
-            speed_value_to_send_tb,
-            1'b1,
-            ACK_EXPECTED_FROM_FPGA,
-            byte_received_from_fpga_tb,
-            spi_data_out_dut,
-            spi_data_valid_out_dut
-        );
+        check_transaction(current_test_case_name, data_to_send_mcu, byte_to_send_mosi_tb, previous_led_data_tb);
+        previous_led_data_tb = data_to_send_mcu;
         #(SCLK_PERIOD_SPI * 2);
 
 
-        $display("===========================================");
-        $display("  FIN DE LA SIMULACION SPI_SLAVE_MODULE    ");
-        $display("===========================================");
+        // --- Test Case 4: Send 4'h0 (0000) ---
+        current_test_case_name = "Send 4'h0 (0000)";
+        data_to_send_mcu = 4'h0;
+        byte_to_send_mosi_tb = {data_to_send_mcu, 4'b0000};
+
+        arduino_ss_n_tb = 1'b0;
+        $display("Time: %0t ns - %s: SS_n LOW, MOSI byte 8'b%b", $time, current_test_case_name, byte_to_send_mosi_tb);
+        #(CLK_PERIOD_FPGA);
+
+        spi_transfer_byte(byte_to_send_mosi_tb, byte_received_miso_tb);
+
+        arduino_ss_n_tb = 1'b1;
+        $display("Time: %0t ns - %s: SS_n HIGH, MISO byte received 8'b%b", $time, current_test_case_name, byte_received_miso_tb);
+        #(CLK_PERIOD_FPGA * 5);
+
+        check_transaction(current_test_case_name, data_to_send_mcu, byte_to_send_mosi_tb, previous_led_data_tb);
+        previous_led_data_tb = data_to_send_mcu;
+        #(SCLK_PERIOD_SPI * 2);
+
+
+        $display("\n===================================================");
+        $display("  SIMULATION FINISHED for FpgaController ");
+        $display("===================================================");
         $finish;
     end
 

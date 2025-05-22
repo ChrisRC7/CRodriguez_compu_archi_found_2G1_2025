@@ -1,62 +1,93 @@
 #include <SPI.h>
 
-const int ssPin = 10; // Slave Select pin
-byte velocidad = 0;
-const byte ACK_EXPECTED = 0x00; // El byte de ACK que esperamos de la FPGA
+const int ssPin = 10;
+byte led_command = 0; // Comando actual para los LEDs
 
-SPISettings spiSettings(62500, MSBFIRST, SPI_MODE0); // 1MHz, MSB primero, Modo 0
+// Asegúrate de que la velocidad de Serial.begin coincida con tu Monitor Serie
+// 9600 es una opción segura y común.
+const long SERIAL_BAUD_RATE = 9600;
+
+// Intentar una velocidad muy lenta, por ejemplo 1000 Hz (1 kHz)
+SPISettings spiSettings(125000, MSBFIRST, SPI_MODE0);
+
+// Ya no necesitamos MAX_RETRIES, se reintentará indefinidamente
+// const int MAX_RETRIES = 3;
 
 void setup() {
-  Serial.begin(9600);
-  while (!Serial);
+  Serial.begin(SERIAL_BAUD_RATE);
+  while (!Serial); // Para Arduinos como Leonardo que necesitan que el puerto serie se abra
 
   pinMode(ssPin, OUTPUT);
   digitalWrite(ssPin, HIGH); // Deseleccionar esclavo inicialmente
 
   SPI.begin();
+  Serial.println("Arduino Maestro SPI - Handshake con Eco, Reintentos Infinitos y Pausas.");
+}
 
-  Serial.println("Arduino Maestro SPI Inicializado (con Handshake ACK).");
+// Función para enviar un comando y verificar el eco, con reintentos indefinidos
+// Devuelve true si el comando fue verificado, false si algo extraordinario ocurriera (no aplicable aquí)
+bool sendAndVerifyCommandPersistent(byte command_to_send) {
+  byte byte_to_transmit;
+  byte byte_received_from_fpga;
+  byte fpga_led_status_echo;
+  bool command_verified = false;
+  int attempt_count = 0;
+
+  while (!command_verified) { // Continuar hasta que el comando sea verificado
+    attempt_count++;
+    byte_to_transmit = (command_to_send & 0x0F) << 4;
+
+    if (attempt_count == 1) {
+      Serial.print("Enviando Comando LED: ");
+    } else {
+      Serial.print("Re-enviando Comando LED (Intento ");
+      Serial.print(attempt_count);
+      Serial.print("): ");
+    }
+    Serial.print(command_to_send);
+    Serial.print(" (Byte Tx: 0b");
+    for (int i = 7; i >= 0; i--) Serial.print(bitRead(byte_to_transmit, i));
+    Serial.print(")... ");
+
+    SPI.beginTransaction(spiSettings);
+    digitalWrite(ssPin, LOW);
+    byte_received_from_fpga = SPI.transfer(byte_to_transmit);
+    digitalWrite(ssPin, HIGH);
+    SPI.endTransaction();
+
+    fpga_led_status_echo = (byte_received_from_fpga >> 4) & 0x0F;
+
+    Serial.print("FPGA reporta LEDs: ");
+    Serial.print(fpga_led_status_echo);
+    Serial.print(" (Byte Rx: 0b");
+    for (int i = 7; i >= 0; i--) Serial.print(bitRead(byte_received_from_fpga, i));
+    Serial.println(")");
+
+    if (fpga_led_status_echo == command_to_send) {
+      Serial.println("  -> Verificación OK: FPGA confirmó el comando.");
+      command_verified = true; // Esto romperá el bucle while
+    } else {
+      Serial.println("  -> Verificación FALLIDA: FPGA no confirmó el comando.");
+      Serial.println("     Esperando 3 segundo antes de reintentar...");
+      delay(3000); // <--- ESPERA DE 3 SEGUNDO ENTRE INTENTOS FALLIDOS
+    }
+  }
+  return command_verified; // Siempre será true si sale del bucle
 }
 
 void loop() {
-  // Preparar el dato de 4 bits de velocidad (en los 4 bits MSB del byte)
-  byte dato_a_enviar = (velocidad & 0x0F) << 4;
-  byte ack_recibido;
+  Serial.println("-----------------------------------------");
+  sendAndVerifyCommandPersistent(led_command); // Esta función ahora bloqueará hasta el éxito
 
-  Serial.print("Enviando Velocidad: ");
-  Serial.print(velocidad);
-  Serial.print(" (Byte: 0b");
-  for (int i = 7; i >= 0; i--) {
-    Serial.print(bitRead(dato_a_enviar, i));
+  // El comando fue procesado con éxito por la FPGA porque sendAndVerifyCommandPersistent
+  // solo retorna 'true' después de una verificación exitosa.
+  Serial.println("Comando procesado con éxito por la FPGA.");
+  Serial.println("Esperando 3 segundos antes de enviar el siguiente comando...");
+  delay(3000); // Pausa de 3 segundos ANTES de pasar al siguiente comando
+
+  // Avanzar al siguiente comando para la próxima iteración del loop
+  led_command++;
+  if (led_command > 15) {
+    led_command = 0;
   }
-  Serial.print(")... ");
-
-  SPI.beginTransaction(spiSettings);
-  digitalWrite(ssPin, LOW); // Seleccionar FPGA
-
-  // Enviar el comando Y SIMULTÁNEAMENTE recibir el byte de ACK de la FPGA
-  ack_recibido = SPI.transfer(dato_a_enviar);
-
-  digitalWrite(ssPin, HIGH); // Deseleccionar FPGA
-  SPI.endTransaction();
-
-  // Verificar el ACK
-  if (ack_recibido == ACK_EXPECTED) {
-    Serial.print("ACK Recibido: 0x");
-    Serial.print(ack_recibido, HEX);
-    Serial.println(" - OK!");
-  } else {
-    Serial.print("ACK Fallido o Incorrecto. Recibido: 0x");
-    Serial.print(ack_recibido, HEX);
-    Serial.println(" - ERROR!");
-    // Aquí podrías implementar lógica para reintentar el envío si es necesario,
-    // según la especificación del proyecto [cite: 52]
-  }
-
-  velocidad++;
-  if (velocidad > 15) {
-    velocidad = 0;
-  }
-
-  delay(1500); // Un delay un poco más largo para leer la consola
 }

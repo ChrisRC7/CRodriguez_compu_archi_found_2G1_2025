@@ -1,5 +1,5 @@
 Analysis & Synthesis report for FPGAController
-Sat May 17 17:21:05 2025
+Wed May 21 21:21:10 2025
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -16,10 +16,11 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
   8. Registers Removed During Synthesis
   9. Removed Registers Triggering Further Register Optimizations
  10. General Register Statistics
- 11. Port Connectivity Checks: "Spi_slave_module:spi_unit"
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Port Connectivity Checks: "Spi_slave_module:spi_unit"
+ 13. Post-Synthesis Netlist Statistics for Top Partition
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
 
 
 
@@ -46,14 +47,14 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sat May 17 17:21:05 2025          ;
+; Analysis & Synthesis Status     ; Successful - Wed May 21 21:21:10 2025          ;
 ; Quartus Prime Version           ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                   ; FPGAController                                 ;
 ; Top-level Entity Name           ; FpgaController                                 ;
 ; Family                          ; Cyclone V                                      ;
 ; Logic utilization (in ALMs)     ; N/A                                            ;
-; Total registers                 ; 0                                              ;
-; Total pins                      ; 14                                             ;
+; Total registers                 ; 21                                             ;
+; Total pins                      ; 17                                             ;
 ; Total virtual pins              ; 0                                              ;
 ; Total block memory bits         ; 0                                              ;
 ; Total DSP Blocks                ; 0                                              ;
@@ -162,57 +163,61 @@ https://fpgasoftware.intel.com/eula.
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processors 2-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                       ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                   ; Library ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------+---------+
-; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv ;         ;
-; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv   ;         ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------+---------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                          ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                      ; Library ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
+; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv    ;         ;
+; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv      ;         ;
+; Hex_to_7seg_decoder.sv           ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv ;         ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
 
 
-+--------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary            ;
-+---------------------------------------------+----------+
-; Resource                                    ; Usage    ;
-+---------------------------------------------+----------+
-; Estimate of Logic utilization (ALMs needed) ; 0        ;
-;                                             ;          ;
-; Combinational ALUT usage for logic          ; 0        ;
-;     -- 7 input functions                    ; 0        ;
-;     -- 6 input functions                    ; 0        ;
-;     -- 5 input functions                    ; 0        ;
-;     -- 4 input functions                    ; 0        ;
-;     -- <=3 input functions                  ; 0        ;
-;                                             ;          ;
-; Dedicated logic registers                   ; 0        ;
-;                                             ;          ;
-; I/O pins                                    ; 14       ;
-;                                             ;          ;
-; Total DSP Blocks                            ; 0        ;
-;                                             ;          ;
-; Maximum fan-out node                        ; FPGA_clk ;
-; Maximum fan-out                             ; 1        ;
-; Total fan-out                               ; 14       ;
-; Average fan-out                             ; 0.50     ;
-+---------------------------------------------+----------+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimate of Logic utilization (ALMs needed) ; 17             ;
+;                                             ;                ;
+; Combinational ALUT usage for logic          ; 22             ;
+;     -- 7 input functions                    ; 0              ;
+;     -- 6 input functions                    ; 9              ;
+;     -- 5 input functions                    ; 5              ;
+;     -- 4 input functions                    ; 7              ;
+;     -- <=3 input functions                  ; 1              ;
+;                                             ;                ;
+; Dedicated logic registers                   ; 21             ;
+;                                             ;                ;
+; I/O pins                                    ; 17             ;
+;                                             ;                ;
+; Total DSP Blocks                            ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; FPGA_clk~input ;
+; Maximum fan-out                             ; 21             ;
+; Total fan-out                               ; 187            ;
+; Average fan-out                             ; 2.43           ;
++---------------------------------------------+----------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                       ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+----------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name    ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+----------------+--------------+
-; |FpgaController            ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 14   ; 0            ; |FpgaController     ; FpgaController ; work         ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+----------------+--------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                            ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                  ; Entity Name         ; Library Name ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+---------------------+--------------+
+; |FpgaController                           ; 22 (0)              ; 21 (0)                    ; 0                 ; 0          ; 17   ; 0            ; |FpgaController                                      ; FpgaController      ; work         ;
+;    |Hex_to_7seg_decoder:bcd_decoder_unit| ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Hex_to_7seg_decoder:bcd_decoder_unit ; Hex_to_7seg_decoder ; work         ;
+;    |Spi_slave_module:spi_unit|            ; 15 (15)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Spi_slave_module:spi_unit            ; Spi_slave_module    ; work         ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -221,30 +226,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +------------------------------------------------+----------------------------------------+
 ; Register name                                  ; Reason for Removal                     ;
 +------------------------------------------------+----------------------------------------+
-; Spi_slave_module:spi_unit|shift_reg_miso[0..6] ; Stuck at GND due to stuck port data_in ;
-; Spi_slave_module:spi_unit|ss_n_sync2           ; Lost fanout                            ;
-; Spi_slave_module:spi_unit|sclk_sync2           ; Lost fanout                            ;
-; Spi_slave_module:spi_unit|sclk_sync1           ; Lost fanout                            ;
-; Spi_slave_module:spi_unit|ss_n_sync1           ; Lost fanout                            ;
-; Spi_slave_module:spi_unit|shift_reg_miso[7]    ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 12         ;                                        ;
+; Spi_slave_module:spi_unit|shift_reg_miso[0..3] ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 4          ;                                        ;
 +------------------------------------------------+----------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                                  ;
-+---------------------------------------------+---------------------------+------------------------------------------------------------------------------------+
-; Register name                               ; Reason for Removal        ; Registers Removed due to This Register                                             ;
-+---------------------------------------------+---------------------------+------------------------------------------------------------------------------------+
-; Spi_slave_module:spi_unit|shift_reg_miso[0] ; Stuck at GND              ; Spi_slave_module:spi_unit|shift_reg_miso[1],                                       ;
-;                                             ; due to stuck port data_in ; Spi_slave_module:spi_unit|shift_reg_miso[2],                                       ;
-;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[3],                                       ;
-;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[4],                                       ;
-;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[5],                                       ;
-;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[6], Spi_slave_module:spi_unit|ss_n_sync2, ;
-;                                             ;                           ; Spi_slave_module:spi_unit|sclk_sync2, Spi_slave_module:spi_unit|sclk_sync1,        ;
-;                                             ;                           ; Spi_slave_module:spi_unit|ss_n_sync1, Spi_slave_module:spi_unit|shift_reg_miso[7]  ;
-+---------------------------------------------+---------------------------+------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                            ;
++---------------------------------------------+---------------------------+----------------------------------------------+
+; Register name                               ; Reason for Removal        ; Registers Removed due to This Register       ;
++---------------------------------------------+---------------------------+----------------------------------------------+
+; Spi_slave_module:spi_unit|shift_reg_miso[0] ; Stuck at GND              ; Spi_slave_module:spi_unit|shift_reg_miso[1], ;
+;                                             ; due to stuck port data_in ; Spi_slave_module:spi_unit|shift_reg_miso[2], ;
+;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[3]  ;
++---------------------------------------------+---------------------------+----------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -252,14 +247,23 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 0     ;
+; Total registers                              ; 21    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Clock Enable       ; 7     ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |FpgaController|Spi_slave_module:spi_unit|shift_reg_miso[7] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------+
@@ -267,7 +271,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+--------+----------+-------------------------------------------------------------------------------------+
 ; Port               ; Type   ; Severity ; Details                                                                             ;
 +--------------------+--------+----------+-------------------------------------------------------------------------------------+
-; spi_data_out       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; spi_data_valid_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 +--------------------+--------+----------+-------------------------------------------------------------------------------------+
 
@@ -277,13 +280,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_lcell_comb     ; 1                           ;
-;     normal            ; 1                           ;
-;         0 data inputs ; 1                           ;
-; boundary_port         ; 14                          ;
+; arriav_ff             ; 21                          ;
+;     ENA               ; 7                           ;
+;     plain             ; 14                          ;
+; arriav_lcell_comb     ; 29                          ;
+;     normal            ; 29                          ;
+;         1 data inputs ; 7                           ;
+;         2 data inputs ; 1                           ;
+;         4 data inputs ; 7                           ;
+;         5 data inputs ; 5                           ;
+;         6 data inputs ; 9                           ;
+; boundary_port         ; 17                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 0.00                        ;
-; Average LUT depth     ; 0.00                        ;
+; Max LUT depth         ; 2.00                        ;
+; Average LUT depth     ; 1.51                        ;
 +-----------------------+-----------------------------+
 
 
@@ -302,46 +312,36 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sat May 17 17:20:59 2025
+    Info: Processing started: Wed May 21 21:21:03 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_module.sv
-    Info (12023): Found entity 1: Spi_slave_module File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv Line: 9
+    Info (12023): Found entity 1: Spi_slave_module File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fpgacontroller.sv
-    Info (12023): Found entity 1: FpgaController File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 4
+    Info (12023): Found entity 1: FpgaController File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_tb.sv
     Info (12023): Found entity 1: Spi_slave_tb File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file hex_to_7seg_decoder.sv
+    Info (12023): Found entity 1: Hex_to_7seg_decoder File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file fpgaselftester.sv
+    Info (12023): Found entity 1: FpgaSelfTester File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaSelfTester.sv Line: 5
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
-Warning (10034): Output port "seven_segment_display" at FpgaController.sv(18) has no driver File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-Warning (10034): Output port "motor_pwm_signal" at FpgaController.sv(16) has no driver File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 16
-Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 40
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "fpga_physical_miso" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 13
-    Warning (13410): Pin "motor_pwm_signal" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 16
-    Warning (13410): Pin "seven_segment_display[0]" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-    Warning (13410): Pin "seven_segment_display[1]" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-    Warning (13410): Pin "seven_segment_display[2]" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-    Warning (13410): Pin "seven_segment_display[3]" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-    Warning (13410): Pin "seven_segment_display[4]" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-    Warning (13410): Pin "seven_segment_display[5]" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-    Warning (13410): Pin "seven_segment_display[6]" is stuck at GND File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 18
-Info (17049): 4 registers lost all their fanouts during netlist optimizations.
+Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 28
+Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(88): object "load_miso_condition" assigned a value but never read File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv Line: 88
+Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(89): object "byte_to_send_on_miso" assigned a value but never read File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv Line: 89
+Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7seg_decoder:bcd_decoder_unit" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 36
+Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 5 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "FPGA_clk" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 6
-    Warning (15610): No output dependent on input pin "FPGA_reset" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 7
-    Warning (15610): No output dependent on input pin "arduino_sclk" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 8
-    Warning (15610): No output dependent on input pin "arduino_mosi" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 9
-    Warning (15610): No output dependent on input pin "arduino_ss_n" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 10
-Info (21057): Implemented 14 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 53 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
-    Info (21059): Implemented 9 output pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 19 warnings
-    Info: Peak virtual memory: 4829 megabytes
-    Info: Processing ended: Sat May 17 17:21:05 2025
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:16
+    Info (21059): Implemented 12 output pins
+    Info (21061): Implemented 36 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4890 megabytes
+    Info: Processing ended: Wed May 21 21:21:10 2025
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:15
 
 

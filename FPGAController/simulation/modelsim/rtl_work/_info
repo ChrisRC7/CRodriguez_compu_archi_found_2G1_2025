@@ -9,48 +9,75 @@ z2
 !i10f 100
 cModel Technology
 Z0 dE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/simulation/modelsim
-vFpgaController
+vBCD
 Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z2 !s110 1747463118
+Z2 !s110 1747873032
 !i10b 1
-!s100 A2BFh0`=Q3a7F^hf]]Hj93
+!s100 YKkTS3bJ4=4`A_f4Ia5SK2
 Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
-I<;FN_FH9G@;kXHAPQmY<o3
+ICG1[dK5PXBl[NhKIWiz070
 Z4 VDg1SIo80bB@j0V0VzS_@n1
 S1
 R0
-w1747443143
-8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv
-FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv
-!i122 1
-L0 4 51
+w1747871917
+8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv
+FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv
+!i122 2
+L0 1 49
 Z5 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z6 !s108 1747463118.000000
-!s107 E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController|E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv|
+Z6 !s108 1747873032.000000
+!s107 E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController|E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv|
 !i113 1
 Z7 o-sv -work work
 Z8 !s92 -sv -work work {+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController}
 Z9 tCvgOpt 0
+n@b@c@d
+vFpgaController
+R1
+R2
+!i10b 1
+!s100 :b;21di3Eacn>:X?CiGBE3
+R3
+I@I6PRU>6TKcO0O2GJV?Q43
+R4
+S1
+R0
+w1747871548
+8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv
+FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv
+!i122 1
+L0 5 56
+R5
+r1
+!s85 0
+31
+R6
+!s107 E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController|E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv|
+!i113 1
+R7
+R8
+R9
 n@fpga@controller
 vSpi_slave_module
 R1
 R2
 !i10b 1
-!s100 C9HeB?hZnCCM]ZQCTXl1;0
+!s100 nR@BWiYkbKIY7;o>6H;Lk0
 R3
-I0AHD1eV5]b5aeSOA2m=Mb1
+I4Vl?6gRKHhJY^jW`G;z7G1
 R4
 S1
 R0
-w1747463093
+w1747531028
 8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv
 FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv
 !i122 0
-L0 9 179
+L0 4 199
 R5
 r1
 !s85 0
@@ -65,19 +92,19 @@ R9
 n@spi_slave_module
 vSpi_slave_tb
 R1
-R2
+!s110 1747873033
 !i10b 1
-!s100 ma5X]bl8Zh?A1Q=mgjo1I1
+!s100 949Z`1jmX6`dF64`0dEMm0
 R3
-I1V=9lXoXPL=ZgY9C>aTG;2
+I8M9AzCX;U;`gQDUMgkFEh0
 R4
 S1
 R0
-w1747449716
+w1747873006
 8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv
 FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv
-!i122 2
-L0 4 256
+!i122 3
+L0 4 284
 R5
 r1
 !s85 0

@@ -1,0 +1,116 @@
+//-----------------------------------------------------------------------------
+// Modulo hex_to_7seg_decoder
+//
+// Descripcion:
+//   Decodifica una entrada hexadecimal de 4 bits a las 7 señales
+//   para un display de 7 segmentos (cátodo común, 1 = ON).
+//   Implementado estructuralmente con ecuaciones booleanas.
+//-----------------------------------------------------------------------------
+module Hex_to_7seg_decoder (
+    input  logic [3:0] hex_in,      // Entrada de 4 bits (s3, s2, s1, s0)
+    output logic [6:0] segments_out // Salida para 7 segmentos (a,b,c,d,e,f,g)
+);
+    // Asignación de bits de entrada para facilidad de lectura en ecuaciones
+    // hex_in[3] = s3 (MSB), hex_in[0] = s0 (LSB)
+    logic s3, s2, s1, s0;
+    assign s3 = hex_in[3];
+    assign s2 = hex_in[2];
+    assign s1 = hex_in[1];
+    assign s0 = hex_in[0];
+
+    // Ecuaciones booleanas para cada segmento (a, b, c, d, e, f, g)
+    // Estas son sumas de productos NO SIMPLIFICADAS. Se recomienda simplificarlas
+    // con Mapas de Karnaugh para una implementación más eficiente.
+    // segments_out[0] = a, segments_out[1] = b, ..., segments_out[6] = g
+
+    // Segmento 'a' (ON para 0,2,3,5,6,7,8,9,A,C,E,F)
+    assign segments_out[0] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                             (~s3 & ~s2 &  s1 & ~s0) | // 2
+                             (~s3 & ~s2 &  s1 &  s0) | // 3
+                             (~s3 &  s1 & ~s1 &  s0) | // 5
+                             (~s3 &  s1 &  s0 & ~s0) | // 6
+                             (~s3 &  s1 &  s0 &  s0) | // 7
+                             ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                             ( s3 & ~s2 & ~s1 &  s0) | // 9
+                             ( s3 & ~s2 &  s1 & ~s0) | // A (10)
+                             ( s3 &  s1 & ~s1 & ~s0) | // C (12)
+                             ( s3 &  s1 &  s0 & ~s0) | // E (14)
+                             ( s3 &  s1 &  s0 &  s0);  // F (15)
+
+    // Segmento 'b' (ON para 0,1,2,3,4,7,8,9,A,D)
+    assign segments_out[1] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                             (~s3 & ~s2 & ~s1 &  s0) | // 1
+                             (~s3 & ~s2 &  s1 & ~s0) | // 2
+                             (~s3 & ~s2 &  s1 &  s0) | // 3
+                             (~s3 &  s1 & ~s1 & ~s0) | // 4
+                             (~s3 &  s1 &  s0 &  s0) | // 7
+                             ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                             ( s3 & ~s2 & ~s1 &  s0) | // 9
+                             ( s3 & ~s2 &  s1 & ~s0) | // A (10)
+                             ( s3 &  s1 & ~s0 &  s0);  // d (13)
+
+    // Segmento 'c' (ON para 0,1,3,4,5,6,7,8,9,A,B,D)
+    assign segments_out[2] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                             (~s3 & ~s2 & ~s1 &  s0) | // 1
+                             (~s3 & ~s2 &  s1 &  s0) | // 3
+                             (~s3 &  s1 & ~s1 & ~s0) | // 4
+                             (~s3 &  s1 & ~s1 &  s0) | // 5
+                             (~s3 &  s1 &  s0 & ~s0) | // 6
+                             (~s3 &  s1 &  s0 &  s0) | // 7
+                             ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                             ( s3 & ~s2 & ~s1 &  s0) | // 9
+                             ( s3 & ~s2 &  s1 & ~s0) | // A (10)
+                             ( s3 & ~s2 &  s1 &  s0) | // b (11)
+                             ( s3 &  s1 & ~s0 &  s0);  // d (13)
+
+    // Segmento 'd' (ON para 0,2,3,5,6,8,B,C,D,E)
+    assign segments_out[3] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                             (~s3 & ~s2 &  s1 & ~s0) | // 2
+                             (~s3 & ~s2 &  s1 &  s0) | // 3
+                             (~s3 &  s1 & ~s1 &  s0) | // 5
+                             (~s3 &  s1 &  s0 & ~s0) | // 6
+                             ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                             ( s3 & ~s2 &  s1 &  s0) | // b (11)
+                             ( s3 &  s1 & ~s1 & ~s0) | // C (12)
+                             ( s3 &  s1 & ~s0 &  s0) | // d (13)
+                             ( s3 &  s1 &  s0 & ~s0);  // E (14)
+
+    // Segmento 'e' (ON para 0,2,6,8,A,B,C,D,E,F)
+    assign segments_out[4] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                             (~s3 & ~s2 &  s1 & ~s0) | // 2
+                             (~s3 &  s1 &  s0 & ~s0) | // 6
+                             ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                             ( s3 & ~s2 &  s1 & ~s0) | // A (10)
+                             ( s3 & ~s2 &  s1 &  s0) | // b (11)
+                             ( s3 &  s1 & ~s1 & ~s0) | // C (12)
+                             ( s3 &  s1 & ~s0 &  s0) | // d (13)
+                             ( s3 &  s1 &  s0 & ~s0) | // E (14)
+                             ( s3 &  s1 &  s0 &  s0);  // F (15)
+
+    // Segmento 'f' (ON para 0,4,5,6,8,9,A,B,C,E,F)
+    assign segments_out[5] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                             (~s3 &  s1 & ~s1 & ~s0) | // 4
+                             (~s3 &  s1 & ~s1 &  s0) | // 5
+                             (~s3 &  s1 &  s0 & ~s0) | // 6
+                             ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                             ( s3 & ~s2 & ~s1 &  s0) | // 9
+                             ( s3 & ~s2 &  s1 & ~s0) | // A (10)
+                             ( s3 & ~s2 &  s1 &  s0) | // b (11)
+                             ( s3 &  s1 & ~s1 & ~s0) | // C (12)
+                             ( s3 &  s1 &  s0 & ~s0) | // E (14)
+                             ( s3 &  s1 &  s0 &  s0);  // F (15)
+
+    // Segmento 'g' (ON para 2,3,4,5,6,8,9,A,B,D,E,F)
+    assign segments_out[6] = (~s3 & ~s2 &  s1 & ~s0) | // 2
+                             (~s3 & ~s2 &  s1 &  s0) | // 3
+                             (~s3 &  s1 & ~s1 & ~s0) | // 4
+                             (~s3 &  s1 & ~s1 &  s0) | // 5
+                             (~s3 &  s1 &  s0 & ~s0) | // 6
+                             ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                             ( s3 & ~s2 & ~s1 &  s0) | // 9
+                             ( s3 & ~s2 &  s1 & ~s0) | // A (10)
+                             ( s3 & ~s2 &  s1 &  s0) | // b (11)
+                             ( s3 &  s1 & ~s0 &  s0) | // d (13)
+                             ( s3 &  s1 &  s0 & ~s0) | // E (14)
+                             ( s3 &  s1 &  s0 &  s0);  // F (15)
+endmodule

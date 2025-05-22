@@ -47,6 +47,7 @@ vmap work rtl_work
 
 vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv}
 vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv}
+vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv}
 
 vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv}
 
