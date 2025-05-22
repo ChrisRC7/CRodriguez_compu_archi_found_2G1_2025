@@ -4,17 +4,41 @@ module FpgaController (
     input logic arduino_sclk,
     input logic arduino_mosi,
     input logic arduino_ss_n,
+	 input logic A, B, C, D,
+
 
  
     output logic fpga_physical_miso,
     output logic [3:0] led_outputs,
-    output logic [6:0] seven_segment_pins
+    output logic [6:0] seven_segment_pins,
+	 output logic Y0, Y1   //para tb
 );
 
     wire [3:0] data_from_spi_to_fpga;
     wire        data_is_valid_from_spi;
     wire [6:0] segments_from_bcd_units;
-
+	 
+	 // Resultado del deco
+	 logic [1:0] dec_result;
+	 
+	 // numero del 0 al 3 del deco pero con cuatro bits
+	 logic [3:0] dec_4bits;
+	 
+	 // Instancia del Decodificador
+    FirtsDecoder_4to2bits decoder_inst (
+        .A(A),
+        .B(B),
+        .C(C),
+        .D(D),
+        .Y0(dec_result[0]),
+        .Y1(dec_result[1])
+    );
+	 
+	 // Exportar los valores al top
+	assign Y0 = dec_result[0];
+	assign Y1 = dec_result[1];
+	assign dec_4bits = {2'b00, dec_result};
+	
 
     Spi_slave_module spi_unit (
         .clk(FPGA_clk),

@@ -1,33 +1,24 @@
-Analysis & Synthesis report for FPGAController
-Wed May 21 21:21:10 2025
-Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+Analysis & Elaboration report for FPGAController
+Wed May 21 21:53:27 2025
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
 ---------------------
 ; Table of Contents ;
 ---------------------
   1. Legal Notice
-  2. Analysis & Synthesis Summary
-  3. Analysis & Synthesis Settings
-  4. Parallel Compilation
-  5. Analysis & Synthesis Source Files Read
-  6. Analysis & Synthesis Resource Usage Summary
-  7. Analysis & Synthesis Resource Utilization by Entity
-  8. Registers Removed During Synthesis
-  9. Removed Registers Triggering Further Register Optimizations
- 10. General Register Statistics
- 11. Multiplexer Restructuring Statistics (Restructuring Performed)
- 12. Port Connectivity Checks: "Spi_slave_module:spi_unit"
- 13. Post-Synthesis Netlist Statistics for Top Partition
- 14. Elapsed Time Per Partition
- 15. Analysis & Synthesis Messages
+  2. Analysis & Elaboration Summary
+  3. Parallel Compilation
+  4. Analysis & Elaboration Settings
+  5. Port Connectivity Checks: "Spi_slave_module:spi_unit"
+  6. Analysis & Elaboration Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2022  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
@@ -44,31 +35,42 @@ https://fpgasoftware.intel.com/eula.
 
 
 
-+----------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                     ;
-+---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed May 21 21:21:10 2025          ;
-; Quartus Prime Version           ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
-; Revision Name                   ; FPGAController                                 ;
-; Top-level Entity Name           ; FpgaController                                 ;
-; Family                          ; Cyclone V                                      ;
-; Logic utilization (in ALMs)     ; N/A                                            ;
-; Total registers                 ; 21                                             ;
-; Total pins                      ; 17                                             ;
-; Total virtual pins              ; 0                                              ;
-; Total block memory bits         ; 0                                              ;
-; Total DSP Blocks                ; 0                                              ;
-; Total HSSI RX PCSs              ; 0                                              ;
-; Total HSSI PMA RX Deserializers ; 0                                              ;
-; Total HSSI TX PCSs              ; 0                                              ;
-; Total HSSI PMA TX Serializers   ; 0                                              ;
-; Total PLLs                      ; 0                                              ;
-; Total DLLs                      ; 0                                              ;
-+---------------------------------+------------------------------------------------+
++-----------------------------------------------------------------------------+
+; Analysis & Elaboration Summary                                              ;
++-------------------------------+---------------------------------------------+
+; Analysis & Elaboration Status ; Successful - Wed May 21 21:53:27 2025       ;
+; Quartus Prime Version         ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
+; Revision Name                 ; FPGAController                              ;
+; Top-level Entity Name         ; FpgaController                              ;
+; Family                        ; Cyclone V                                   ;
+; Logic utilization (in ALMs)   ; N/A until Partition Merge                   ;
+; Total registers               ; N/A until Partition Merge                   ;
+; Total pins                    ; N/A until Partition Merge                   ;
+; Total virtual pins            ; N/A until Partition Merge                   ;
+; Total block memory bits       ; N/A until Partition Merge                   ;
+; Total PLLs                    ; N/A until Partition Merge                   ;
+; Total DLLs                    ; N/A until Partition Merge                   ;
++-------------------------------+---------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 16          ;
+; Maximum allowed            ; 10          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Settings                                                                                             ;
+; Analysis & Elaboration Settings                                                                                           ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
@@ -154,118 +156,6 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 
 
-+------------------------------------------+
-; Parallel Compilation                     ;
-+----------------------------+-------------+
-; Processors                 ; Number      ;
-+----------------------------+-------------+
-; Number detected on machine ; 16          ;
-; Maximum allowed            ; 16          ;
-;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 16          ;
-;                            ;             ;
-; Usage by Processor         ; % Time Used ;
-;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.0%      ;
-+----------------------------+-------------+
-
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                          ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                      ; Library ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
-; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv    ;         ;
-; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv      ;         ;
-; Hex_to_7seg_decoder.sv           ; yes             ; User SystemVerilog HDL File  ; E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv ;         ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
-
-
-+--------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                  ;
-+---------------------------------------------+----------------+
-; Resource                                    ; Usage          ;
-+---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 17             ;
-;                                             ;                ;
-; Combinational ALUT usage for logic          ; 22             ;
-;     -- 7 input functions                    ; 0              ;
-;     -- 6 input functions                    ; 9              ;
-;     -- 5 input functions                    ; 5              ;
-;     -- 4 input functions                    ; 7              ;
-;     -- <=3 input functions                  ; 1              ;
-;                                             ;                ;
-; Dedicated logic registers                   ; 21             ;
-;                                             ;                ;
-; I/O pins                                    ; 17             ;
-;                                             ;                ;
-; Total DSP Blocks                            ; 0              ;
-;                                             ;                ;
-; Maximum fan-out node                        ; FPGA_clk~input ;
-; Maximum fan-out                             ; 21             ;
-; Total fan-out                               ; 187            ;
-; Average fan-out                             ; 2.43           ;
-+---------------------------------------------+----------------+
-
-
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                            ;
-+-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+---------------------+--------------+
-; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                  ; Entity Name         ; Library Name ;
-+-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+---------------------+--------------+
-; |FpgaController                           ; 22 (0)              ; 21 (0)                    ; 0                 ; 0          ; 17   ; 0            ; |FpgaController                                      ; FpgaController      ; work         ;
-;    |Hex_to_7seg_decoder:bcd_decoder_unit| ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Hex_to_7seg_decoder:bcd_decoder_unit ; Hex_to_7seg_decoder ; work         ;
-;    |Spi_slave_module:spi_unit|            ; 15 (15)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Spi_slave_module:spi_unit            ; Spi_slave_module    ; work         ;
-+-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+---------------------+--------------+
-Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
-
-
-+-----------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                      ;
-+------------------------------------------------+----------------------------------------+
-; Register name                                  ; Reason for Removal                     ;
-+------------------------------------------------+----------------------------------------+
-; Spi_slave_module:spi_unit|shift_reg_miso[0..3] ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 4          ;                                        ;
-+------------------------------------------------+----------------------------------------+
-
-
-+------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                            ;
-+---------------------------------------------+---------------------------+----------------------------------------------+
-; Register name                               ; Reason for Removal        ; Registers Removed due to This Register       ;
-+---------------------------------------------+---------------------------+----------------------------------------------+
-; Spi_slave_module:spi_unit|shift_reg_miso[0] ; Stuck at GND              ; Spi_slave_module:spi_unit|shift_reg_miso[1], ;
-;                                             ; due to stuck port data_in ; Spi_slave_module:spi_unit|shift_reg_miso[2], ;
-;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[3]  ;
-+---------------------------------------------+---------------------------+----------------------------------------------+
-
-
-+------------------------------------------------------+
-; General Register Statistics                          ;
-+----------------------------------------------+-------+
-; Statistic                                    ; Value ;
-+----------------------------------------------+-------+
-; Total registers                              ; 21    ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 0     ;
-; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 7     ;
-; Number of registers using Preset             ; 0     ;
-+----------------------------------------------+-------+
-
-
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                            ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |FpgaController|Spi_slave_module:spi_unit|shift_reg_miso[7] ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
-
-
 +------------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "Spi_slave_module:spi_unit"                                                                        ;
 +--------------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -275,73 +165,39 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+-----------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Top Partition ;
-+-----------------------+-----------------------------+
-; Type                  ; Count                       ;
-+-----------------------+-----------------------------+
-; arriav_ff             ; 21                          ;
-;     ENA               ; 7                           ;
-;     plain             ; 14                          ;
-; arriav_lcell_comb     ; 29                          ;
-;     normal            ; 29                          ;
-;         1 data inputs ; 7                           ;
-;         2 data inputs ; 1                           ;
-;         4 data inputs ; 7                           ;
-;         5 data inputs ; 5                           ;
-;         6 data inputs ; 9                           ;
-; boundary_port         ; 17                          ;
-;                       ;                             ;
-; Max LUT depth         ; 2.00                        ;
-; Average LUT depth     ; 1.51                        ;
-+-----------------------+-----------------------------+
-
-
-+-------------------------------+
-; Elapsed Time Per Partition    ;
-+----------------+--------------+
-; Partition Name ; Elapsed Time ;
-+----------------+--------------+
-; Top            ; 00:00:00     ;
-+----------------+--------------+
-
-
-+-------------------------------+
-; Analysis & Synthesis Messages ;
-+-------------------------------+
++---------------------------------+
+; Analysis & Elaboration Messages ;
++---------------------------------+
 Info: *******************************************************************
-Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Wed May 21 21:21:03 2025
-Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
+Info: Running Quartus Prime Analysis & Elaboration
+    Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+    Info: Processing started: Wed May 21 21:53:19 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (20030): Parallel compilation is enabled and will use 10 of the 10 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_module.sv
-    Info (12023): Found entity 1: Spi_slave_module File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv Line: 1
+    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fpgacontroller.sv
-    Info (12023): Found entity 1: FpgaController File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 1
+    Info (12023): Found entity 1: FpgaController File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_tb.sv
-    Info (12023): Found entity 1: Spi_slave_tb File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv Line: 4
+    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_tb.sv Line: 4
 Info (12021): Found 1 design units, including 1 entities, in source file hex_to_7seg_decoder.sv
-    Info (12023): Found entity 1: Hex_to_7seg_decoder File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv Line: 1
+    Info (12023): Found entity 1: Hex_to_7seg_decoder File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Hex_to_7seg_decoder.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fpgaselftester.sv
-    Info (12023): Found entity 1: FpgaSelfTester File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaSelfTester.sv Line: 5
+    Info (12023): Found entity 1: FpgaSelfTester File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaSelfTester.sv Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file firtsdecoder_4to2bits.sv
+    Info (12023): Found entity 1: FirtsDecoder_4to2bits File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FirtsDecoder_4to2bits.sv Line: 7
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
-Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 28
-Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(88): object "load_miso_condition" assigned a value but never read File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv Line: 88
-Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(89): object "byte_to_send_on_miso" assigned a value but never read File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv Line: 89
-Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7seg_decoder:bcd_decoder_unit" File: E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv Line: 36
-Info (286030): Timing-Driven Synthesis is running
-Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 53 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 5 input pins
-    Info (21059): Implemented 12 output pins
-    Info (21061): Implemented 36 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4890 megabytes
-    Info: Processing ended: Wed May 21 21:21:10 2025
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:15
+Warning (10036): Verilog HDL or VHDL warning at FpgaController.sv(25): object "dec_4bits" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 25
+Info (12128): Elaborating entity "FirtsDecoder_4to2bits" for hierarchy "FirtsDecoder_4to2bits:decoder_inst" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 35
+Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 52
+Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(88): object "load_miso_condition" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 88
+Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(89): object "byte_to_send_on_miso" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 89
+Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7seg_decoder:bcd_decoder_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 60
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 4772 megabytes
+    Info: Processing ended: Wed May 21 21:53:27 2025
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:18
 
 
