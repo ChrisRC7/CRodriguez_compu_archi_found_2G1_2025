@@ -1,23 +1,24 @@
-Analysis & Synthesis report for FPGAController
-Thu May 22 18:06:54 2025
-Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+Analysis & Elaboration report for FPGAController
+Thu May 22 22:15:35 2025
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
 ---------------------
 ; Table of Contents ;
 ---------------------
   1. Legal Notice
-  2. Analysis & Synthesis Summary
-  3. Analysis & Synthesis Settings
-  4. Parallel Compilation
-  5. Analysis & Synthesis Messages
+  2. Analysis & Elaboration Summary
+  3. Parallel Compilation
+  4. Analysis & Elaboration Settings
+  5. Port Connectivity Checks: "Spi_slave_module:spi_unit"
+  6. Analysis & Elaboration Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2023  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
@@ -34,26 +35,42 @@ https://fpgasoftware.intel.com/eula.
 
 
 
-+------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                 ;
-+-----------------------------+------------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Thu May 22 18:06:54 2025              ;
-; Quartus Prime Version       ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
-; Revision Name               ; FPGAController                                 ;
-; Top-level Entity Name       ; FpgaController                                 ;
-; Family                      ; Cyclone V                                      ;
-; Logic utilization (in ALMs) ; N/A until Partition Merge                      ;
-; Total registers             ; N/A until Partition Merge                      ;
-; Total pins                  ; N/A until Partition Merge                      ;
-; Total virtual pins          ; N/A until Partition Merge                      ;
-; Total block memory bits     ; N/A until Partition Merge                      ;
-; Total PLLs                  ; N/A until Partition Merge                      ;
-; Total DLLs                  ; N/A until Partition Merge                      ;
-+-----------------------------+------------------------------------------------+
++-----------------------------------------------------------------------------+
+; Analysis & Elaboration Summary                                              ;
++-------------------------------+---------------------------------------------+
+; Analysis & Elaboration Status ; Successful - Thu May 22 22:15:35 2025       ;
+; Quartus Prime Version         ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
+; Revision Name                 ; FPGAController                              ;
+; Top-level Entity Name         ; FpgaController                              ;
+; Family                        ; Cyclone V                                   ;
+; Logic utilization (in ALMs)   ; N/A until Partition Merge                   ;
+; Total registers               ; N/A until Partition Merge                   ;
+; Total pins                    ; N/A until Partition Merge                   ;
+; Total virtual pins            ; N/A until Partition Merge                   ;
+; Total block memory bits       ; N/A until Partition Merge                   ;
+; Total PLLs                    ; N/A until Partition Merge                   ;
+; Total DLLs                    ; N/A until Partition Merge                   ;
++-------------------------------+---------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 16          ;
+; Maximum allowed            ; 10          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Settings                                                                                             ;
+; Analysis & Elaboration Settings                                                                                           ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
@@ -139,60 +156,62 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 
 
-+------------------------------------------+
-; Parallel Compilation                     ;
-+----------------------------+-------------+
-; Processors                 ; Number      ;
-+----------------------------+-------------+
-; Number detected on machine ; 16          ;
-; Maximum allowed            ; 16          ;
-;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
-;                            ;             ;
-; Usage by Processor         ; % Time Used ;
-;     Processor 1            ; 100.0%      ;
-+----------------------------+-------------+
++------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Spi_slave_module:spi_unit"                                                                        ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port               ; Type   ; Severity ; Details                                                                             ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+; spi_data_valid_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+-------------------------------+
-; Analysis & Synthesis Messages ;
-+-------------------------------+
++---------------------------------+
+; Analysis & Elaboration Messages ;
++---------------------------------+
 Info: *******************************************************************
-Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
-    Info: Processing started: Thu May 22 18:06:49 2025
-Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
+Info: Running Quartus Prime Analysis & Elaboration
+    Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+    Info: Processing started: Thu May 22 22:15:27 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (20030): Parallel compilation is enabled and will use 10 of the 10 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file xor_4bits.sv
+    Info (12023): Found entity 1: xor_4bits File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/xor_4bits.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file simple_frequency_divider.sv
+    Info (12023): Found entity 1: Simple_frequency_divider File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Simple_frequency_divider.sv Line: 8
+Info (12021): Found 1 design units, including 1 entities, in source file and_4bits.sv
+    Info (12023): Found entity 1: and_4bits File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/and_4bits.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_module.sv
-    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 1
+    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fpgacontroller.sv
-    Info (12023): Found entity 1: FpgaController File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 1
+    Info (12023): Found entity 1: FpgaController File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_tb.sv
-    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_tb.sv Line: 4
+    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_tb.sv Line: 4
 Info (12021): Found 1 design units, including 1 entities, in source file hex_to_7seg_decoder.sv
-    Info (12023): Found entity 1: Hex_to_7seg_decoder File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Hex_to_7seg_decoder.sv Line: 1
+    Info (12023): Found entity 1: Hex_to_7seg_decoder File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Hex_to_7seg_decoder.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fpgaselftester.sv
-    Info (12023): Found entity 1: FpgaSelfTester File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaSelfTester.sv Line: 5
+    Info (12023): Found entity 1: FpgaSelfTester File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaSelfTester.sv Line: 5
 Info (12021): Found 1 design units, including 1 entities, in source file firtsdecoder_4to2bits.sv
-    Info (12023): Found entity 1: FirtsDecoder_4to2bits File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FirtsDecoder_4to2bits.sv Line: 7
+    Info (12023): Found entity 1: FirtsDecoder_4to2bits File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FirtsDecoder_4to2bits.sv Line: 7
 Info (12021): Found 1 design units, including 1 entities, in source file multiplier.sv
-    Info (12023): Found entity 1: multiplier File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/multiplier.sv Line: 1
+    Info (12023): Found entity 1: multiplier File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/multiplier.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file full_adder.sv
-    Info (12023): Found entity 1: full_adder File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/full_adder.sv Line: 1
-Error (10170): Verilog HDL syntax error at xor.sv(1) near text: "xor";  expecting an identifier ("xor" is a reserved keyword ). Check for and fix any syntax errors that appear immediately before or at the specified keyword. The Intel FPGA Knowledge Database contains many articles with specific details on how to resolve this error. Visit the Knowledge Database at https://www.altera.com/support/support-resources/knowledge-base/search.html and search for this specific error message number. File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/xor.sv Line: 1
-Info (12021): Found 0 design units, including 0 entities, in source file xor.sv
-Error (10170): Verilog HDL syntax error at and.sv(1) near text: "and";  expecting an identifier ("and" is a reserved keyword ). Check for and fix any syntax errors that appear immediately before or at the specified keyword. The Intel FPGA Knowledge Database contains many articles with specific details on how to resolve this error. Visit the Knowledge Database at https://www.altera.com/support/support-resources/knowledge-base/search.html and search for this specific error message number. File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/and.sv Line: 1
-Info (12021): Found 0 design units, including 0 entities, in source file and.sv
+    Info (12023): Found entity 1: full_adder File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/full_adder.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file sub_4bit.sv
-    Info (12023): Found entity 1: sub_4bit File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/sub_4bit.sv Line: 1
+    Info (12023): Found entity 1: sub_4bit File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/sub_4bit.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
-    Info (12023): Found entity 1: alu File: C:/Users/andre/OneDrive/Escritorio/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 1
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 1 warning
-    Error: Peak virtual memory: 4792 megabytes
-    Error: Processing ended: Thu May 22 18:06:54 2025
-    Error: Elapsed time: 00:00:05
-    Error: Total CPU time (on all processors): 00:00:12
+    Info (12023): Found entity 1: alu File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 1
+Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at FpgaController.sv(25): object "dec_4bits" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 25
+Info (12128): Elaborating entity "FirtsDecoder_4to2bits" for hierarchy "FirtsDecoder_4to2bits:decoder_inst" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 35
+Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 52
+Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(88): object "load_miso_condition" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 88
+Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(89): object "byte_to_send_on_miso" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 89
+Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7seg_decoder:bcd_decoder_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 60
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 4764 megabytes
+    Info: Processing ended: Thu May 22 22:15:35 2025
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:17
 
 
