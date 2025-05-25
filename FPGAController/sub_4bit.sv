@@ -1,7 +1,8 @@
 module sub_4bit (
     input  logic [3:0] A,
     input  logic [3:0] B,
-    output logic [3:0] Y
+    output logic [3:0] Y,
+	 output logic C    // <- Acarreo (Carry)
 );
 
     logic [3:0] B_comp;  // complemento a 1
@@ -20,6 +21,6 @@ module sub_4bit (
     full_adder fa0 (.a(A[0]), .b(B_comp[0]), .cin(1'b1), .sum(Y[0]), .cout(c1));
     full_adder fa1 (.a(A[1]), .b(B_comp[1]), .cin(c1),    .sum(Y[1]), .cout(c2));
     full_adder fa2 (.a(A[2]), .b(B_comp[2]), .cin(c2),    .sum(Y[2]), .cout(c3));
-    full_adder fa3 (.a(A[3]), .b(B_comp[3]), .cin(c3),    .sum(Y[3]), .cout());
+    full_adder fa3 (.a(A[3]), .b(B_comp[3]), .cin(c3),    .sum(Y[3]), .cout(C));
 
 endmodule

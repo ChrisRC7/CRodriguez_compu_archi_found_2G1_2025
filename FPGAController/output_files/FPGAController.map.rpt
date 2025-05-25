@@ -1,5 +1,5 @@
 Analysis & Elaboration report for FPGAController
-Thu May 22 22:15:35 2025
+Sat May 24 19:26:51 2025
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -38,7 +38,7 @@ https://fpgasoftware.intel.com/eula.
 +-----------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                              ;
 +-------------------------------+---------------------------------------------+
-; Analysis & Elaboration Status ; Successful - Thu May 22 22:15:35 2025       ;
+; Analysis & Elaboration Status ; Successful - Sat May 24 19:26:51 2025       ;
 ; Quartus Prime Version         ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                 ; FPGAController                              ;
 ; Top-level Entity Name         ; FpgaController                              ;
@@ -171,7 +171,7 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Thu May 22 22:15:27 2025
+    Info: Processing started: Sat May 24 19:26:44 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 10 of the 10 processors detected
@@ -201,6 +201,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file sub_4bi
     Info (12023): Found entity 1: sub_4bit File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/sub_4bit.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
     Info (12023): Found entity 1: alu File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file alu_tb.sv
+    Info (12023): Found entity 1: alu_tb File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu_tb.sv Line: 3
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
 Warning (10036): Verilog HDL or VHDL warning at FpgaController.sv(25): object "dec_4bits" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 25
 Info (12128): Elaborating entity "FirtsDecoder_4to2bits" for hierarchy "FirtsDecoder_4to2bits:decoder_inst" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 35
@@ -209,9 +211,9 @@ Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(88): object 
 Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(89): object "byte_to_send_on_miso" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 89
 Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7seg_decoder:bcd_decoder_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 60
 Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 4764 megabytes
-    Info: Processing ended: Thu May 22 22:15:35 2025
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:17
+    Info: Peak virtual memory: 4776 megabytes
+    Info: Processing ended: Sat May 24 19:26:51 2025
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:19
 
 

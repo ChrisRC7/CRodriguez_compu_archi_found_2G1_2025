@@ -1,5 +1,5 @@
 Flow report for FPGAController
-Thu May 22 22:15:35 2025
+Sat May 24 19:26:51 2025
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -41,7 +41,7 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------------------+
 ; Flow Summary                                                              ;
 +-----------------------------+---------------------------------------------+
-; Flow Status                 ; Successful - Thu May 22 22:15:35 2025       ;
+; Flow Status                 ; Successful - Sat May 24 19:26:51 2025       ;
 ; Quartus Prime Version       ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name               ; FPGAController                              ;
 ; Top-level Entity Name       ; FpgaController                              ;
@@ -63,7 +63,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/22/2025 22:15:28 ;
+; Start date & time ; 05/24/2025 19:26:44 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; FPGAController      ;
 +-------------------+---------------------+
@@ -74,19 +74,23 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------------+----------------------------------------+---------------+----------------+-----------------------------------+
 ; Assignment Name                      ; Value                                  ; Default Value ; Entity Name    ; Section Id                        ;
 +--------------------------------------+----------------------------------------+---------------+----------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID                ; 237785193706138.174797372832352        ; --            ; --             ; --                                ;
+; COMPILER_SIGNATURE_ID                ; 237785193706138.174813640422452        ; --            ; --             ; --                                ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --             ; Spi_slave_tb                      ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --             ; alu_tb                            ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST      ; Off                                    ; --            ; --             ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST      ; Off                                    ; --            ; --             ; eda_board_design_boundary_scan    ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST      ; Off                                    ; --            ; --             ; eda_board_design_signal_integrity ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST      ; Off                                    ; --            ; --             ; eda_board_design_symbol           ;
-; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; Spi_slave_tb                           ; --            ; --             ; eda_simulation                    ;
+; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; alu_tb                                 ; --            ; --             ; eda_simulation                    ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                      ; --            ; --             ; eda_simulation                    ;
-; EDA_SIMULATION_TOOL                  ; ModelSim (SystemVerilog)               ; <None>        ; --             ; --                                ;
+; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (SystemVerilog)        ; <None>        ; --             ; --                                ;
 ; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                        ; --            ; --             ; eda_simulation                    ;
 ; EDA_TEST_BENCH_FILE                  ; Spi_slave_tb.sv                        ; --            ; --             ; Spi_slave_tb                      ;
+; EDA_TEST_BENCH_FILE                  ; alu_tb.sv                              ; --            ; --             ; alu_tb                            ;
 ; EDA_TEST_BENCH_MODULE_NAME           ; Spi_slave_tb                           ; --            ; --             ; Spi_slave_tb                      ;
+; EDA_TEST_BENCH_MODULE_NAME           ; alu_tb                                 ; --            ; --             ; alu_tb                            ;
 ; EDA_TEST_BENCH_NAME                  ; Spi_slave_tb                           ; --            ; --             ; eda_simulation                    ;
+; EDA_TEST_BENCH_NAME                  ; alu_tb                                 ; --            ; --             ; eda_simulation                    ;
 ; EDA_TIME_SCALE                       ; 1 ps                                   ; --            ; --             ; eda_simulation                    ;
 ; MAX_CORE_JUNCTION_TEMP               ; 85                                     ; --            ; --             ; --                                ;
 ; MIN_CORE_JUNCTION_TEMP               ; 0                                      ; --            ; --             ; --                                ;
@@ -104,8 +108,8 @@ https://fpgasoftware.intel.com/eula.
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name            ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Elaboration ; 00:00:08     ; 1.0                     ; 4764 MB             ; 00:00:17                           ;
-; Total                  ; 00:00:08     ; --                      ; --                  ; 00:00:17                           ;
+; Analysis & Elaboration ; 00:00:07     ; 1.0                     ; 4776 MB             ; 00:00:19                           ;
+; Total                  ; 00:00:07     ; --                      ; --                  ; 00:00:19                           ;
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

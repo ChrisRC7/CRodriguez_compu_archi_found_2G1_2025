@@ -8,112 +8,138 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/simulation/modelsim
-vBCD
+Z0 dC:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/simulation/modelsim
+valu_tb
 Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z2 !s110 1747873032
+Z2 !s110 1748136422
 !i10b 1
-!s100 YKkTS3bJ4=4`A_f4Ia5SK2
+!s100 [`l7VMlVM=eG5@0FQ<>Ck2
 Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
-ICG1[dK5PXBl[NhKIWiz070
+I@Ve<HVN2c8G3cfgO]>Bbe0
 Z4 VDg1SIo80bB@j0V0VzS_@n1
 S1
 R0
-w1747871917
-8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv
-FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv
-!i122 2
-L0 1 49
+w1748132438
+8C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu_tb.sv
+FC:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu_tb.sv
+!i122 4
+L0 3 57
 Z5 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z6 !s108 1747873032.000000
-!s107 E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController|E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Hex_to_7seg_decoder.sv|
+Z6 !s108 1748136422.000000
+!s107 C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu_tb.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController|C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu_tb.sv|
 !i113 1
 Z7 o-sv -work work
-Z8 !s92 -sv -work work {+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController}
+Z8 !s92 -sv -work work {+incdir+C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController}
 Z9 tCvgOpt 0
-n@b@c@d
-vFpgaController
+vFirtsDecoder_4to2bits
 R1
 R2
 !i10b 1
-!s100 :b;21di3Eacn>:X?CiGBE3
+!s100 ]Z`nED7KMDOhHUG1gNC^M3
 R3
-I@I6PRU>6TKcO0O2GJV?Q43
+I1bfJ^zNFm7`F7_;jRO6^Z2
 R4
 S1
 R0
-w1747871548
-8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv
-FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv
-!i122 1
-L0 5 56
+w1747884612
+8C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FirtsDecoder_4to2bits.sv
+FC:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FirtsDecoder_4to2bits.sv
+!i122 3
+L0 7 10
 R5
 r1
 !s85 0
 31
 R6
-!s107 E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController|E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv|
+!s107 C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FirtsDecoder_4to2bits.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController|C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FirtsDecoder_4to2bits.sv|
+!i113 1
+R7
+R8
+R9
+n@firts@decoder_4to2bits
+vFpgaController
+R1
+Z10 !s110 1748136421
+!i10b 1
+!s100 0PWVc?;D38j?@Bah<lZ1V1
+R3
+ImH<MjF3>B_aKk7PD=;^7f1
+R4
+S1
+R0
+w1747885998
+8C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv
+FC:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv
+!i122 1
+L0 1 70
+R5
+r1
+!s85 0
+31
+Z11 !s108 1748136421.000000
+!s107 C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController|C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv|
 !i113 1
 R7
 R8
 R9
 n@fpga@controller
-vSpi_slave_module
+vHex_to_7seg_decoder
 R1
 R2
 !i10b 1
-!s100 nR@BWiYkbKIY7;o>6H;Lk0
+!s100 ?OV^RNel27KHY6@V`X`Kd1
 R3
-I4Vl?6gRKHhJY^jW`G;z7G1
+I<VB<`k4KohWQEzmjFNSWX1
 R4
 S1
 R0
-w1747531028
-8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv
-FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv
-!i122 0
-L0 4 199
+Z12 w1747884469
+8C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Hex_to_7seg_decoder.sv
+FC:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Hex_to_7seg_decoder.sv
+!i122 2
+L0 1 116
 R5
 r1
 !s85 0
 31
-R6
-!s107 E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController|E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv|
+R11
+!s107 C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Hex_to_7seg_decoder.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController|C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Hex_to_7seg_decoder.sv|
+!i113 1
+R7
+R8
+R9
+n@hex_to_7seg_decoder
+vSpi_slave_module
+R1
+R10
+!i10b 1
+!s100 RXB=Q5k`@@`c2h?Ya8c3V0
+R3
+IXZWcnDoc`dA^I=Bd<:b803
+R4
+S1
+R0
+R12
+8C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv
+FC:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv
+!i122 0
+L0 1 130
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController|C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv|
 !i113 1
 R7
 R8
 R9
 n@spi_slave_module
-vSpi_slave_tb
-R1
-!s110 1747873033
-!i10b 1
-!s100 949Z`1jmX6`dF64`0dEMm0
-R3
-I8M9AzCX;U;`gQDUMgkFEh0
-R4
-S1
-R0
-w1747873006
-8E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv
-FE:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv
-!i122 3
-L0 4 284
-R5
-r1
-!s85 0
-31
-R6
-!s107 E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController|E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv|
-!i113 1
-R7
-R8
-R9
-n@spi_slave_tb

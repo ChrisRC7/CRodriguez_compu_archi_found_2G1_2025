@@ -8,20 +8,20 @@ A => A.IN1
 B => B.IN1
 C => C.IN1
 D => D.IN1
-fpga_physical_miso <= Spi_slave_module:spi_unit.miso_out
-led_outputs[0] <= data_from_spi_to_fpga[0].DB_MAX_OUTPUT_PORT_TYPE
-led_outputs[1] <= data_from_spi_to_fpga[1].DB_MAX_OUTPUT_PORT_TYPE
-led_outputs[2] <= data_from_spi_to_fpga[2].DB_MAX_OUTPUT_PORT_TYPE
-led_outputs[3] <= data_from_spi_to_fpga[3].DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_pins[0] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[1] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[2] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[3] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[4] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[5] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[6] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-Y0 <= FirtsDecoder_4to2bits:decoder_inst.Y0
-Y1 <= FirtsDecoder_4to2bits:decoder_inst.Y1
+fpga_physical_miso << Spi_slave_module:spi_unit.miso_out
+led_outputs[0] << data_from_spi_to_fpga[0].DB_MAX_OUTPUT_PORT_TYPE
+led_outputs[1] << data_from_spi_to_fpga[1].DB_MAX_OUTPUT_PORT_TYPE
+led_outputs[2] << data_from_spi_to_fpga[2].DB_MAX_OUTPUT_PORT_TYPE
+led_outputs[3] << data_from_spi_to_fpga[3].DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_pins[0] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[1] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[2] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[3] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[4] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[5] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[6] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+Y0 << FirtsDecoder_4to2bits:decoder_inst.Y0
+Y1 << FirtsDecoder_4to2bits:decoder_inst.Y1
 
 
 |FpgaController|FirtsDecoder_4to2bits:decoder_inst
