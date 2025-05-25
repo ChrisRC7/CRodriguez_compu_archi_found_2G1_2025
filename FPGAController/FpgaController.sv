@@ -5,13 +5,17 @@ module FpgaController (
     input logic arduino_mosi,
     input logic arduino_ss_n,
 	 input logic A, B, C, D,
-
+	 input logic M, //entrada de multiplicación
+	 input logic S, //entrada de resta
+	 input logic N, // entrada de AND
+	 input logic X, // entrada de XOR
+	 
 
  
     output logic fpga_physical_miso,
     output logic [3:0] led_outputs,
     output logic [6:0] seven_segment_pins,
-	 output logic Y0, Y1   //para tb
+	 output logic [3:0] leds    // LEDs para las banderas: Z, C, V, S
 );
 
     wire [3:0] data_from_spi_to_fpga;
@@ -24,7 +28,18 @@ module FpgaController (
 	 // numero del 0 al 3 del deco pero con cuatro bits
 	 logic [3:0] dec_4bits;
 	 
-	 // Instancia del Decodificador
+	 // Resultado del deco de la alu
+	 logic [1:0] alu_sel;
+	 
+	 // Resultado de la operacion de la alu
+	 logic [7:0] alu_result;
+	 
+	 
+	 
+	 // Flags de la alu
+	 logic Z, Carry, V, Sign;
+	 
+	 // Instancia del Decodificador de las fotoresistencias
     FirtsDecoder_4to2bits decoder_inst (
         .A(A),
         .B(B),
@@ -34,12 +49,31 @@ module FpgaController (
         .Y1(dec_result[1])
     );
 	 
-	 // Exportar los valores al top
-	assign Y0 = dec_result[0];
-	assign Y1 = dec_result[1];
+	 // Instancia del Decodificador de eleccion de operacion 
+    FirtsDecoder_4to2bits alu_controller (
+        .A(M),
+        .B(S),
+        .C(N),
+        .D(X),
+        .Y0(alu_sel[0]),
+        .Y1(alu_sel[1])
+    );
+
+
+// asignar dos ceros a la izquierda
 	assign dec_4bits = {2'b00, dec_result};
+	 
+	alu aluu (
+	     .A(data_from_spi_to_fpga),
+        .B(dec_4bits),
+		  .sel(alu_sel),
+        .result(alu_result),
+        .Z(Z), .C(Carry), .V(V), .S(Sign)
+    );
+	 
 	
 
+	// Conexion SPI a Arduino
     Spi_slave_module spi_unit (
         .clk(FPGA_clk),
         .reset(FPGA_reset),

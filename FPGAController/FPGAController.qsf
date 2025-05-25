@@ -63,7 +63,7 @@ set_location_assignment PIN_AA12 -to arduino_sclk
 set_location_assignment PIN_AD10 -to arduino_ss_n
 set_location_assignment PIN_AC12 -to fpga_physical_miso
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH alu_tb -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH Spi_slave_tb -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME Spi_slave_tb -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id Spi_slave_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME Spi_slave_tb -section_id Spi_slave_tb
@@ -95,9 +95,5 @@ set_global_assignment -name SYSTEMVERILOG_FILE full_adder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE sub_4bit.sv
 set_global_assignment -name SYSTEMVERILOG_FILE alu.sv
 set_global_assignment -name SYSTEMVERILOG_FILE alu_tb.sv
-set_global_assignment -name EDA_TEST_BENCH_NAME alu_tb -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id alu_tb
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME alu_tb -section_id alu_tb
 set_global_assignment -name EDA_TEST_BENCH_FILE Spi_slave_tb.sv -section_id Spi_slave_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE alu_tb.sv -section_id alu_tb
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
