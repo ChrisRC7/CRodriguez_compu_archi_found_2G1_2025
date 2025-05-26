@@ -1,0 +1,16 @@
+module Registro4bits (
+    input  logic clk,
+    input  logic reset,
+    input  logic enable,
+    input  logic [3:0] D,
+    output logic [3:0] Q
+);
+
+    always_ff @(posedge clk) begin
+        Q[0] <= (~reset & ((enable & D[0]) | (~enable & Q[0])));
+        Q[1] <= (~reset & ((enable & D[1]) | (~enable & Q[1])));
+        Q[2] <= (~reset & ((enable & D[2]) | (~enable & Q[2])));
+        Q[3] <= (~reset & ((enable & D[3]) | (~enable & Q[3])));
+    end
+
+endmodule

@@ -1,5 +1,5 @@
 Analysis & Elaboration report for FPGAController
-Sat May 24 21:40:23 2025
+Sun May 25 15:17:04 2025
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -11,13 +11,14 @@ Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
   3. Parallel Compilation
   4. Analysis & Elaboration Settings
   5. Port Connectivity Checks: "Spi_slave_module:spi_unit"
-  6. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa9"
-  7. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa6"
-  8. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa3"
-  9. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa1"
- 10. Port Connectivity Checks: "alu:aluu|sub_4bit:sub_module|full_adder:fa0"
- 11. Port Connectivity Checks: "alu:aluu"
- 12. Analysis & Elaboration Messages
+  6. Port Connectivity Checks: "Registro4bits:reg_inst"
+  7. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa9"
+  8. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa6"
+  9. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa3"
+ 10. Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa1"
+ 11. Port Connectivity Checks: "alu:aluu|sub_4bit:sub_module|full_adder:fa0"
+ 12. Port Connectivity Checks: "alu:aluu"
+ 13. Analysis & Elaboration Messages
 
 
 
@@ -44,7 +45,7 @@ https://fpgasoftware.intel.com/eula.
 +-----------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                              ;
 +-------------------------------+---------------------------------------------+
-; Analysis & Elaboration Status ; Successful - Sat May 24 21:40:23 2025       ;
+; Analysis & Elaboration Status ; Successful - Sun May 25 15:17:04 2025       ;
 ; Quartus Prime Version         ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                 ; FPGAController                              ;
 ; Top-level Entity Name         ; FpgaController                              ;
@@ -171,6 +172,15 @@ https://fpgasoftware.intel.com/eula.
 +--------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Registro4bits:reg_inst"                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; q    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +----------------------------------------------------------------------------+
 ; Port Connectivity Checks: "alu:aluu|multiplier:mult_module|full_adder:fa9" ;
 +------+-------+----------+--------------------------------------------------+
@@ -216,18 +226,18 @@ https://fpgasoftware.intel.com/eula.
 +------+-------+----------+-----------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "alu:aluu"                                                                              ;
-+---------+--------+----------+-------------------------------------------------------------------------------------+
-; Port    ; Type   ; Severity ; Details                                                                             ;
-+---------+--------+----------+-------------------------------------------------------------------------------------+
-; B[3..2] ; Input  ; Info     ; Stuck at GND                                                                        ;
-; result  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; Z       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; C       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; V       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; S       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+---------+--------+----------+-------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu:aluu"                                                                                   ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; B[3..2]      ; Input  ; Info     ; Stuck at GND                                                                        ;
+; result[7..4] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; Z            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; C            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; V            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; S            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +---------------------------------+
@@ -236,7 +246,7 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Sat May 24 21:40:15 2025
+    Info: Processing started: Sun May 25 15:15:53 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 10 of the 10 processors detected
@@ -268,23 +278,30 @@ Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
     Info (12023): Found entity 1: alu File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file alu_tb.sv
     Info (12023): Found entity 1: alu_tb File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu_tb.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file registro4bits.sv
+    Info (12023): Found entity 1: Registro4bits File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 1
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
-Warning (10034): Output port "leds" at FpgaController.sv(19) has no driver File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 19
-Info (12128): Elaborating entity "FirtsDecoder_4to2bits" for hierarchy "FirtsDecoder_4to2bits:decoder_inst" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 50
-Info (12128): Elaborating entity "alu" for hierarchy "alu:aluu" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 72
+Warning (10034): Output port "leds" at FpgaController.sv(22) has no driver File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 22
+Info (12128): Elaborating entity "FirtsDecoder_4to2bits" for hierarchy "FirtsDecoder_4to2bits:decoder_inst" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 54
+Info (12128): Elaborating entity "alu" for hierarchy "alu:aluu" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 76
 Info (12128): Elaborating entity "and_4bits" for hierarchy "alu:aluu|and_4bits:and_gate" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 24
 Info (12128): Elaborating entity "xor_4bits" for hierarchy "alu:aluu|xor_4bits:xor_gate" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 30
 Info (12128): Elaborating entity "sub_4bit" for hierarchy "alu:aluu|sub_4bit:sub_module" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 37
 Info (12128): Elaborating entity "full_adder" for hierarchy "alu:aluu|sub_4bit:sub_module|full_adder:fa0" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/sub_4bit.sv Line: 21
 Info (12128): Elaborating entity "multiplier" for hierarchy "alu:aluu|multiplier:mult_module" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 43
-Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 86
+Info (12128): Elaborating entity "Registro4bits" for hierarchy "Registro4bits:reg_inst" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 84
+Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(9): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 9
+Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(10): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 10
+Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(11): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 11
+Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(12): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 12
+Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 97
 Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(88): object "load_miso_condition" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 88
 Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(89): object "byte_to_send_on_miso" assigned a value but never read File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 89
-Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7seg_decoder:bcd_decoder_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 94
-Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 4 warnings
+Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7seg_decoder:bcd_decoder_unit" File: C:/Users/gonza/proyectos funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 105
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 8 warnings
     Info: Peak virtual memory: 4776 megabytes
-    Info: Processing ended: Sat May 24 21:40:23 2025
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:20
+    Info: Processing ended: Sun May 25 15:17:04 2025
+    Info: Elapsed time: 00:01:11
+    Info: Total CPU time (on all processors): 00:00:39
 
 

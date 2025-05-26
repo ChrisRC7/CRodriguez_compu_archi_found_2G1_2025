@@ -10,6 +10,9 @@ module FpgaController (
 	 input logic N, // entrada de AND
 	 input logic X, // entrada de XOR
 	 
+	 input logic reset,
+	 input logic clk,
+	 
 
  
     output logic fpga_physical_miso,
@@ -34,10 +37,11 @@ module FpgaController (
 	 // Resultado de la operacion de la alu
 	 logic [7:0] alu_result;
 	 
-	 
-	 
 	 // Flags de la alu
 	 logic Z, Carry, V, Sign;
+	 
+	 // Salida del registro
+	 logic [3:0] reg_out; 
 	 
 	 // Instancia del Decodificador de las fotoresistencias
     FirtsDecoder_4to2bits decoder_inst (
@@ -71,6 +75,13 @@ module FpgaController (
         .Z(Z), .C(Carry), .V(V), .S(Sign)
     );
 	 
+	 // Registro para almacenar el resultado de la ALU
+    Registro4bits reg_inst (
+        .clk(clk),
+        .rst(reset),
+        .d(alu_result[3:0]),     // Entrada del registro es el resultado de la ALU
+        .q(reg_out)         // Salida del registro
+    );
 	
 
 	// Conexion SPI a Arduino
