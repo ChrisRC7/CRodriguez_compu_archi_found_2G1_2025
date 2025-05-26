@@ -4,10 +4,10 @@ FPGA_reset => FPGA_reset.IN1
 arduino_sclk => arduino_sclk.IN1
 arduino_mosi => arduino_mosi.IN1
 arduino_ss_n => arduino_ss_n.IN1
-A => A.IN1
-B => B.IN1
-C => C.IN1
-D => D.IN1
+A => _.IN1
+B => _.IN1
+C => _.IN1
+D => _.IN1
 M => M.IN1
 S => S.IN1
 N => N.IN1
@@ -33,6 +33,8 @@ seven_segment_pins2[3] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
 seven_segment_pins2[4] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
 seven_segment_pins2[5] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
 seven_segment_pins2[6] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+Y[0] <= dec_4bits[0].DB_MAX_OUTPUT_PORT_TYPE
+Y[1] <= dec_4bits[1].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|FirtsDecoder_4to2bits:decoder_inst

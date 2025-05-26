@@ -18,7 +18,8 @@ module FpgaController (
     output logic fpga_physical_miso,
     output logic [3:0] led_outputs,      // LEDs para las banderas: Z, C, V, S
     output logic [6:0] seven_segment_pins,
-	 output logic [6:0] seven_segment_pins2   
+	 output logic [6:0] seven_segment_pins2,
+	 output logic [1:0] Y
 );
 
     wire [3:0] data_from_spi_to_fpga;
@@ -52,13 +53,14 @@ module FpgaController (
 	 
 	 // Instancia del Decodificador de las fotoresistencias
     FirtsDecoder_4to2bits decoder_inst (
-        .A(A),
-        .B(B),
-        .C(C),
-        .D(D),
+        .A(~A),
+        .B(~B),
+        .C(~C),
+        .D(~D),
         .Y0(dec_result[0]),
         .Y1(dec_result[1])
     );
+	 assign Y = dec_result;
 	 
 	 // Instancia del Decodificador de eleccion de operacion 
     FirtsDecoder_4to2bits alu_controller (

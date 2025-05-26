@@ -52,11 +52,55 @@
 					"strict" : false
 				},
 				{
-					"name" : "Y0",
+					"name" : "seven_segment_pins2[0]",
 					"strict" : false
 				},
 				{
-					"name" : "Y1",
+					"name" : "seven_segment_pins2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[6]",
+					"strict" : false
+				},
+				{
+					"name" : "Y[0]",
+					"strict" : false
+				},
+				{
+					"name" : "Y[1]",
+					"strict" : false
+				},
+				{
+					"name" : "reset",
+					"strict" : false
+				},
+				{
+					"name" : "S",
+					"strict" : false
+				},
+				{
+					"name" : "X",
+					"strict" : false
+				},
+				{
+					"name" : "D",
 					"strict" : false
 				},
 				{
@@ -64,7 +108,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "D",
+					"name" : "N",
 					"strict" : false
 				},
 				{
