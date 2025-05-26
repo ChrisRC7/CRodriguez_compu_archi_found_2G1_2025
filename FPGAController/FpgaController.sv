@@ -16,14 +16,18 @@ module FpgaController (
 
  
     output logic fpga_physical_miso,
-    output logic [3:0] led_outputs,
+    output logic [3:0] led_outputs,      // LEDs para las banderas: Z, C, V, S
     output logic [6:0] seven_segment_pins,
-	 output logic [3:0] leds    // LEDs para las banderas: Z, C, V, S
+	 output logic [6:0] seven_segment_pins2   
 );
 
     wire [3:0] data_from_spi_to_fpga;
     wire        data_is_valid_from_spi;
     wire [6:0] segments_from_bcd_units;
+	 
+	 wire [6:0] segments_from_bcd_units_2;
+	 
+	 
 	 
 	 // Resultado del deco
 	 logic [1:0] dec_result;
@@ -39,6 +43,9 @@ module FpgaController (
 	 
 	 // Flags de la alu
 	 logic Z, Carry, V, Sign;
+	 
+	 // Registros de las flags
+	 logic reg_Zero, reg_Carry, reg_Overflow, reg_Negative; 
 	 
 	 // Salida del registro
 	 logic [3:0] reg_out; 
@@ -82,6 +89,15 @@ module FpgaController (
         .d(alu_result[3:0]),     // Entrada del registro es el resultado de la ALU
         .q(reg_out)         // Salida del registro
     );
+	 
+	 // Registro para las flags de la ALU 
+	 always @(posedge clk or posedge reset) begin
+		// Reset explícito controlado por el reloj
+		 reg_Zero <= reset | Z;        // Si rst es 1, la salida es 0. Si no, sigue Zero.
+		 reg_Carry <= reset | Carry;
+		 reg_Overflow <= reset | V;
+		 reg_Negative <= reset | Sign;
+	 end
 	
 
 	// Conexion SPI a Arduino
@@ -95,8 +111,25 @@ module FpgaController (
         .spi_data_valid_out(data_is_valid_from_spi),
         .miso_out(fpga_physical_miso)
     );
+	 
+	 Hex_to_7seg_decoder bcd_decoder_unit_r (
+        .hex_in(reg_out),
+        .segments_out(segments_from_bcd_units_2) // Conectar a un wire interno
+    );
 
-    assign led_outputs = data_from_spi_to_fpga;
+    assign seven_segment_pins2[0] = ~segments_from_bcd_units_2[0]; // a
+    assign seven_segment_pins2[1] = ~segments_from_bcd_units_2[1]; // b
+    assign seven_segment_pins2[2] = ~segments_from_bcd_units_2[2]; // c
+    assign seven_segment_pins2[3] = ~segments_from_bcd_units_2[3]; // d
+    assign seven_segment_pins2[4] = ~segments_from_bcd_units_2[4]; // e
+    assign seven_segment_pins2[5] = ~segments_from_bcd_units_2[5]; // f
+    assign seven_segment_pins2[6] = ~segments_from_bcd_units_2[6]; // g
+	 
+	 // Conexión de las banderas (Z, C, V, S) a los LEDs
+    assign led_outputs[0] = reg_Zero;  // LED para Zero flag
+    assign led_outputs[1] = reg_Carry;  // LED para Carry flag
+    assign led_outputs[2] = reg_Overflow;  // LED para Overflow flag
+    assign led_outputs[3] = reg_Negative;  // LED para Sign flag
 
 
     Hex_to_7seg_decoder bcd_decoder_unit (

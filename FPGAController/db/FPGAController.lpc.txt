@@ -4,6 +4,7 @@
 ; Hierarchy             ; Input ; Constant Input ; Unused Input ; Floating Input ; Output ; Constant Output ; Unused Output ; Floating Output ; Bidir ; Constant Bidir ; Unused Bidir ; Input only Bidir ; Output only Bidir ;
 +-----------------------+-------+----------------+--------------+----------------+--------+-----------------+---------------+-----------------+-------+----------------+--------------+------------------+-------------------+
 ; bcd_decoder_unit      ; 4     ; 0              ; 0            ; 0              ; 7      ; 0               ; 0             ; 0               ; 0     ; 0              ; 0            ; 0                ; 0                 ;
+; bcd_decoder_unit_r    ; 4     ; 0              ; 0            ; 0              ; 7      ; 0               ; 0             ; 0               ; 0     ; 0              ; 0            ; 0                ; 0                 ;
 ; spi_unit              ; 5     ; 0              ; 0            ; 0              ; 6      ; 0               ; 0             ; 0               ; 0     ; 0              ; 0            ; 0                ; 0                 ;
 ; reg_inst              ; 6     ; 0              ; 1            ; 0              ; 4      ; 0               ; 0             ; 0               ; 0     ; 0              ; 0            ; 0                ; 0                 ;
 ; aluu|mult_module|fa12 ; 3     ; 0              ; 0            ; 0              ; 2      ; 0               ; 0             ; 0               ; 0     ; 0              ; 0            ; 0                ; 0                 ;
