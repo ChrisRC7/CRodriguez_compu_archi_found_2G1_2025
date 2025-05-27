@@ -19,7 +19,8 @@ module FpgaController (
     output logic [3:0] led_outputs,      // LEDs para las banderas: Z, C, V, S
     output logic [6:0] seven_segment_pins,
 	 output logic [6:0] seven_segment_pins2,
-	 output logic [1:0] Y
+	 output logic [1:0] Y,
+	 output logic motor_pwm    // PWM para controlar el motor
 );
 
     wire [3:0] data_from_spi_to_fpga;
@@ -100,6 +101,14 @@ module FpgaController (
 		 reg_Overflow <= reset | V;
 		 reg_Negative <= reset | Sign;
 	 end
+	 
+	 // Instancia del PWM, utilizando el resultado de la ALU como la velocidad
+    pwm pwm_inst (
+        .clk(FPGA_clk),
+        .rst(reset),
+        .hex_in(reg_out),   // El resultado de la ALU y registro controla la velocidad del motor
+        .motor_pwm(motor_pwm)
+    );
 	
 
 	// Conexion SPI a Arduino

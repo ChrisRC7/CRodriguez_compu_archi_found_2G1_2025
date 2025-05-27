@@ -1,5 +1,5 @@
 |FpgaController
-FPGA_clk => FPGA_clk.IN1
+FPGA_clk => FPGA_clk.IN2
 FPGA_reset => FPGA_reset.IN1
 arduino_sclk => arduino_sclk.IN1
 arduino_mosi => arduino_mosi.IN1
@@ -12,7 +12,7 @@ M => M.IN1
 S => S.IN1
 N => N.IN1
 X => X.IN1
-reset => reset.IN1
+reset => reset.IN2
 clk => clk.IN1
 fpga_physical_miso << Spi_slave_module:spi_unit.miso_out
 led_outputs[0] << reg_Zero.DB_MAX_OUTPUT_PORT_TYPE
@@ -35,6 +35,7 @@ seven_segment_pins2[5] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
 seven_segment_pins2[6] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
 Y[0] << dec_4bits[0].DB_MAX_OUTPUT_PORT_TYPE
 Y[1] << dec_4bits[1].DB_MAX_OUTPUT_PORT_TYPE
+motor_pwm << pwm:pwm_inst.motor_pwm
 
 
 |FpgaController|FirtsDecoder_4to2bits:decoder_inst
@@ -418,6 +419,34 @@ q[0] <= q[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[1] <= q[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[2] <= q[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[3] <= q[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|pwm:pwm_inst
+clk => count[0].CLK
+clk => count[1].CLK
+clk => count[2].CLK
+clk => count[3].CLK
+clk => count[4].CLK
+clk => count[5].CLK
+clk => count[6].CLK
+clk => count[7].CLK
+rst => count.IN1
+rst => count.IN1
+rst => count.IN1
+rst => count.IN1
+rst => count.IN1
+rst => count.IN1
+rst => count.IN1
+rst => count.IN1
+hex_in[0] => LessThan0.IN15
+hex_in[0] => LessThan0.IN16
+hex_in[1] => LessThan0.IN13
+hex_in[1] => LessThan0.IN14
+hex_in[2] => LessThan0.IN11
+hex_in[2] => LessThan0.IN12
+hex_in[3] => LessThan0.IN9
+hex_in[3] => LessThan0.IN10
+motor_pwm <= LessThan0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|Spi_slave_module:spi_unit

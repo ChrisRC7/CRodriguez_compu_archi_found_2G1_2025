@@ -1,0 +1,24 @@
+module pwm (
+    input  logic clk,
+    input  logic rst,
+    input  logic [3:0] hex_in,   // Entrada hexadecimal (0-F)
+    output logic motor_pwm
+);
+
+    reg [7:0] count;             // Contador de 8 bits
+    logic [7:0] motor_speed;      // Valor PWM calculado
+
+    // Conversión de hex_in a motor_speed (sin if/case/?)
+    assign motor_speed = (hex_in << 4) + hex_in;  // hex_in * 17
+
+    // Contador (reset asíncrono)
+    always @(posedge clk or posedge rst) begin
+	 
+		count <= (~rst & count + 8'h01) | (rst & 8'h00);  // Reset o incremento
+		
+    end
+
+    // Generación de PWM (motor_on = 1 si count < motor_speed)
+    assign motor_pwm = (count < motor_speed);
+
+endmodule
