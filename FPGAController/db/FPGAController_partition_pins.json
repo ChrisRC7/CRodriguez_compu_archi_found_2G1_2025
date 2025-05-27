@@ -92,6 +92,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "N",
+					"strict" : false
+				},
+				{
 					"name" : "S",
 					"strict" : false
 				},
@@ -100,15 +104,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "D",
-					"strict" : false
-				},
-				{
 					"name" : "B",
 					"strict" : false
 				},
 				{
-					"name" : "N",
+					"name" : "D",
 					"strict" : false
 				},
 				{
@@ -121,6 +121,10 @@
 				},
 				{
 					"name" : "FPGA_clk",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
 					"strict" : false
 				},
 				{

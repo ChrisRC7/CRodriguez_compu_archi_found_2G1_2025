@@ -14,27 +14,27 @@ N => N.IN1
 X => X.IN1
 reset => reset.IN1
 clk => clk.IN1
-fpga_physical_miso <= Spi_slave_module:spi_unit.miso_out
-led_outputs[0] <= reg_Zero.DB_MAX_OUTPUT_PORT_TYPE
-led_outputs[1] <= reg_Carry.DB_MAX_OUTPUT_PORT_TYPE
-led_outputs[2] <= reg_Overflow.DB_MAX_OUTPUT_PORT_TYPE
-led_outputs[3] <= reg_Negative.DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_pins[0] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[1] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[2] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[3] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[4] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[5] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins[6] <= Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
-seven_segment_pins2[0] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
-seven_segment_pins2[1] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
-seven_segment_pins2[2] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
-seven_segment_pins2[3] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
-seven_segment_pins2[4] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
-seven_segment_pins2[5] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
-seven_segment_pins2[6] <= Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
-Y[0] <= dec_4bits[0].DB_MAX_OUTPUT_PORT_TYPE
-Y[1] <= dec_4bits[1].DB_MAX_OUTPUT_PORT_TYPE
+fpga_physical_miso << Spi_slave_module:spi_unit.miso_out
+led_outputs[0] << reg_Zero.DB_MAX_OUTPUT_PORT_TYPE
+led_outputs[1] << reg_Carry.DB_MAX_OUTPUT_PORT_TYPE
+led_outputs[2] << reg_Overflow.DB_MAX_OUTPUT_PORT_TYPE
+led_outputs[3] << reg_Negative.DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_pins[0] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[1] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[2] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[3] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[4] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[5] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins[6] << Hex_to_7seg_decoder:bcd_decoder_unit.segments_out
+seven_segment_pins2[0] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+seven_segment_pins2[1] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+seven_segment_pins2[2] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+seven_segment_pins2[3] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+seven_segment_pins2[4] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+seven_segment_pins2[5] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+seven_segment_pins2[6] << Hex_to_7seg_decoder:bcd_decoder_unit_r.segments_out
+Y[0] << dec_4bits[0].DB_MAX_OUTPUT_PORT_TYPE
+Y[1] << dec_4bits[1].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|FirtsDecoder_4to2bits:decoder_inst
@@ -402,7 +402,10 @@ cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|Registro4bits:reg_inst
-clk => ~NO_FANOUT~
+clk => q[0]~reg0.CLK
+clk => q[1]~reg0.CLK
+clk => q[2]~reg0.CLK
+clk => q[3]~reg0.CLK
 rst => q.IN0
 rst => q.IN0
 rst => q.IN0
@@ -411,10 +414,10 @@ d[0] => q.IN1
 d[1] => q.IN1
 d[2] => q.IN1
 d[3] => q.IN1
-q[0] <= q.DB_MAX_OUTPUT_PORT_TYPE
-q[1] <= q.DB_MAX_OUTPUT_PORT_TYPE
-q[2] <= q.DB_MAX_OUTPUT_PORT_TYPE
-q[3] <= q.DB_MAX_OUTPUT_PORT_TYPE
+q[0] <= q[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+q[1] <= q[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+q[2] <= q[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+q[3] <= q[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|Spi_slave_module:spi_unit

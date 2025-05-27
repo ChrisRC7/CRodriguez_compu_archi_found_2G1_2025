@@ -1,5 +1,5 @@
 Analysis & Synthesis report for FPGAController
-Mon May 26 17:30:54 2025
+Mon May 26 19:16:01 2025
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -53,13 +53,13 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon May 26 17:30:54 2025          ;
+; Analysis & Synthesis Status     ; Successful - Mon May 26 19:16:01 2025          ;
 ; Quartus Prime Version           ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                   ; FPGAController                                 ;
 ; Top-level Entity Name           ; FpgaController                                 ;
 ; Family                          ; Cyclone V                                      ;
 ; Logic utilization (in ALMs)     ; N/A                                            ;
-; Total registers                 ; 21                                             ;
+; Total registers                 ; 25                                             ;
 ; Total pins                      ; 36                                             ;
 ; Total virtual pins              ; 0                                              ;
 ; Total block memory bits         ; 0                                              ;
@@ -201,16 +201,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 43             ;
+; Estimate of Logic utilization (ALMs needed) ; 45             ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 55             ;
+; Combinational ALUT usage for logic          ; 61             ;
 ;     -- 7 input functions                    ; 0              ;
-;     -- 6 input functions                    ; 29             ;
-;     -- 5 input functions                    ; 10             ;
-;     -- 4 input functions                    ; 10             ;
+;     -- 6 input functions                    ; 26             ;
+;     -- 5 input functions                    ; 9              ;
+;     -- 4 input functions                    ; 20             ;
 ;     -- <=3 input functions                  ; 6              ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 21             ;
+; Dedicated logic registers                   ; 25             ;
 ;                                             ;                ;
 ; I/O pins                                    ; 36             ;
 ;                                             ;                ;
@@ -218,8 +218,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; FPGA_clk~input ;
 ; Maximum fan-out                             ; 21             ;
-; Total fan-out                               ; 385            ;
-; Average fan-out                             ; 2.60           ;
+; Total fan-out                               ; 410            ;
+; Average fan-out                             ; 2.59           ;
 +---------------------------------------------+----------------+
 
 
@@ -228,21 +228,23 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------+-----------------------+--------------+
 ; Compilation Hierarchy Node                  ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                            ; Entity Name           ; Library Name ;
 +---------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------+-----------------------+--------------+
-; |FpgaController                             ; 55 (6)              ; 21 (0)                    ; 0                 ; 0          ; 36   ; 0            ; |FpgaController                                                ; FpgaController        ; work         ;
+; |FpgaController                             ; 61 (7)              ; 25 (0)                    ; 0                 ; 0          ; 36   ; 0            ; |FpgaController                                                ; FpgaController        ; work         ;
 ;    |FirtsDecoder_4to2bits:decoder_inst|     ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|FirtsDecoder_4to2bits:decoder_inst             ; FirtsDecoder_4to2bits ; work         ;
 ;    |Hex_to_7seg_decoder:bcd_decoder_unit_r| ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Hex_to_7seg_decoder:bcd_decoder_unit_r         ; Hex_to_7seg_decoder   ; work         ;
 ;    |Hex_to_7seg_decoder:bcd_decoder_unit|   ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Hex_to_7seg_decoder:bcd_decoder_unit           ; Hex_to_7seg_decoder   ; work         ;
+;    |Registro4bits:reg_inst|                 ; 4 (4)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Registro4bits:reg_inst                         ; Registro4bits         ; work         ;
 ;    |Spi_slave_module:spi_unit|              ; 15 (15)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Spi_slave_module:spi_unit                      ; Spi_slave_module      ; work         ;
-;    |alu:aluu|                               ; 18 (9)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu                                       ; alu                   ; work         ;
+;    |alu:aluu|                               ; 19 (9)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu                                       ; alu                   ; work         ;
 ;       |multiplier:mult_module|              ; 6 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|multiplier:mult_module                ; multiplier            ; work         ;
 ;          |full_adder:fa1|                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|multiplier:mult_module|full_adder:fa1 ; full_adder            ; work         ;
 ;          |full_adder:fa3|                   ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|multiplier:mult_module|full_adder:fa3 ; full_adder            ; work         ;
 ;          |full_adder:fa5|                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|multiplier:mult_module|full_adder:fa5 ; full_adder            ; work         ;
 ;          |full_adder:fa6|                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|multiplier:mult_module|full_adder:fa6 ; full_adder            ; work         ;
 ;          |full_adder:fa8|                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|multiplier:mult_module|full_adder:fa8 ; full_adder            ; work         ;
-;       |sub_4bit:sub_module|                 ; 3 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|sub_4bit:sub_module                   ; sub_4bit              ; work         ;
-;          |full_adder:fa1|                   ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|sub_4bit:sub_module|full_adder:fa1    ; full_adder            ; work         ;
-;          |full_adder:fa2|                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|sub_4bit:sub_module|full_adder:fa2    ; full_adder            ; work         ;
+;       |sub_4bit:sub_module|                 ; 4 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|sub_4bit:sub_module                   ; sub_4bit              ; work         ;
+;          |full_adder:fa1|                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|sub_4bit:sub_module|full_adder:fa1    ; full_adder            ; work         ;
+;          |full_adder:fa2|                   ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|sub_4bit:sub_module|full_adder:fa2    ; full_adder            ; work         ;
+;          |full_adder:fa3|                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu:aluu|sub_4bit:sub_module|full_adder:fa3    ; full_adder            ; work         ;
 +---------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------+-----------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -273,7 +275,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 21    ;
+; Total registers                              ; 25    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
@@ -361,21 +363,21 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 21                          ;
+; arriav_ff             ; 25                          ;
 ;     ENA               ; 7                           ;
-;     plain             ; 14                          ;
-; arriav_lcell_comb     ; 69                          ;
-;     normal            ; 69                          ;
+;     plain             ; 18                          ;
+; arriav_lcell_comb     ; 75                          ;
+;     normal            ; 75                          ;
 ;         1 data inputs ; 14                          ;
 ;         2 data inputs ; 3                           ;
 ;         3 data inputs ; 3                           ;
-;         4 data inputs ; 10                          ;
-;         5 data inputs ; 10                          ;
-;         6 data inputs ; 29                          ;
+;         4 data inputs ; 20                          ;
+;         5 data inputs ; 9                           ;
+;         6 data inputs ; 26                          ;
 ; boundary_port         ; 36                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 2.62                        ;
+; Max LUT depth         ; 3.00                        ;
+; Average LUT depth     ; 2.04                        ;
 +-----------------------+-----------------------------+
 
 
@@ -384,7 +386,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -394,7 +396,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Mon May 26 17:30:28 2025
+    Info: Processing started: Mon May 26 19:15:32 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -428,6 +430,10 @@ Info (12021): Found 1 design units, including 1 entities, in source file alu_tb.
     Info (12023): Found entity 1: alu_tb File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu_tb.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file registro4bits.sv
     Info (12023): Found entity 1: Registro4bits File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file button_debounce_no_if.sv
+    Info (12023): Found entity 1: Button_debounce_no_if File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Button_debounce_no_if.sv Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file flipflop.sv
+    Info (12023): Found entity 1: FlipFlop File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FlipFlop.sv Line: 1
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
 Critical Warning (10237): Verilog HDL warning at FpgaController.sv(98): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 98
 Critical Warning (10237): Verilog HDL warning at FpgaController.sv(99): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 99
@@ -441,10 +447,6 @@ Info (12128): Elaborating entity "sub_4bit" for hierarchy "alu:aluu|sub_4bit:sub
 Info (12128): Elaborating entity "full_adder" for hierarchy "alu:aluu|sub_4bit:sub_module|full_adder:fa0" File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/sub_4bit.sv Line: 21
 Info (12128): Elaborating entity "multiplier" for hierarchy "alu:aluu|multiplier:mult_module" File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/alu.sv Line: 43
 Info (12128): Elaborating entity "Registro4bits" for hierarchy "Registro4bits:reg_inst" File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 93
-Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(9): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 9
-Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(10): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 10
-Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(11): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 11
-Critical Warning (10237): Verilog HDL warning at Registro4bits.sv(12): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Registro4bits.sv Line: 12
 Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 115
 Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(88): object "load_miso_condition" assigned a value but never read File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 88
 Warning (10036): Verilog HDL or VHDL warning at Spi_slave_module.sv(89): object "byte_to_send_on_miso" assigned a value but never read File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/Spi_slave_module.sv Line: 89
@@ -452,18 +454,17 @@ Info (12128): Elaborating entity "Hex_to_7seg_decoder" for hierarchy "Hex_to_7se
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 3 input pin(s) that do not drive logic
+Warning (21074): Design contains 2 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "A" File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 7
     Warning (15610): No output dependent on input pin "M" File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 8
-    Warning (15610): No output dependent on input pin "clk" File: C:/Users/zikito/Desktop/Funda/CRodriguez_compu_archi_found_2G1_2025/FPGAController/FpgaController.sv Line: 14
-Info (21057): Implemented 105 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 111 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 21 output pins
-    Info (21061): Implemented 69 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 15 warnings
-    Info: Peak virtual memory: 4861 megabytes
-    Info: Processing ended: Mon May 26 17:30:54 2025
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:49
+    Info (21061): Implemented 75 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 10 warnings
+    Info: Peak virtual memory: 4854 megabytes
+    Info: Processing ended: Mon May 26 19:16:01 2025
+    Info: Elapsed time: 00:00:29
+    Info: Total CPU time (on all processors): 00:00:32
 
 
