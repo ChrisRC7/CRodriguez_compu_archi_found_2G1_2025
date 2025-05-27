@@ -8,7 +8,7 @@ byte led_command = 0; // Comando actual para los LEDs
 const long SERIAL_BAUD_RATE = 9600;
 
 // Intentar una velocidad muy lenta, por ejemplo 1000 Hz (1 kHz)
-SPISettings spiSettings(125000, MSBFIRST, SPI_MODE0);
+SPISettings spiSettings(800, MSBFIRST, SPI_MODE0);
 
 // Ya no necesitamos MAX_RETRIES, se reintentará indefinidamente
 // const int MAX_RETRIES = 3;

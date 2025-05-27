@@ -88,6 +88,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "motor_pwm",
+					"strict" : false
+				},
+				{
 					"name" : "reset",
 					"strict" : false
 				},
